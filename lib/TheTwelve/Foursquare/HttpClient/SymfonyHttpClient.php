@@ -16,7 +16,7 @@ class SymfonyHttpClient extends HttpClientAdapter
 
         $response = new RedirectResponse($uri);
         $response->sendHeaders();
-        return true;
+        return $response;
 
     }
 

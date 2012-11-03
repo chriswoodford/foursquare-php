@@ -10,7 +10,7 @@ class TheTwelve_Foursquare_HttpClient_SymfonyHttpClientTest
         $client = new \TheTwelve\Foursquare\HttpClient\SymfonyHttpClient();
         $result = $client->redirect('http://google.ca');
 
-        $this->assertTrue($result);
+        $this->assertTrue($result instanceof \Symfony\Component\HttpFoundation\RedirectResponse);
 
     }
 
