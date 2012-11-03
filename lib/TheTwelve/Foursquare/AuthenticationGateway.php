@@ -2,7 +2,7 @@
 
 namespace TheTwelve\Foursquare;
 
-class AuthenticationGateway
+class AuthenticationGateway extends Gateway
 {
 
     /** @var string */
@@ -19,20 +19,6 @@ class AuthenticationGateway
 
     /** @var string */
     protected $redirectUri;
-
-    /** @var TheTwelve\Foursquare\HttpClient */
-    protected $client;
-
-    /**
-     * initialize the gateway
-     * @param TheTwelve\Foursquare\HttpClient;
-     */
-    public function __construct(HttpClient $client)
-    {
-
-        $this->client = $client;
-
-    }
 
     /**
      * set authentication params
@@ -91,7 +77,7 @@ class AuthenticationGateway
             'redirect_uri' => $this->redirectUri,
         );
 
-        header('Location: ' . $this->authenticationUri . '?' . http_build_query($uriParams));
+        header('Location: ' . $this->authorizeUri . '?' . http_build_query($uriParams));
 
     }
 
