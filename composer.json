@@ -1,0 +1,23 @@
+{
+    "name": "twelvelabs/foursquare",
+    "type": "library",
+    "description": "Foursquare API Client",
+    "keywords": ["foursquare"],
+    "homepage": "http://thetwelvelabs.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Chris Woodford",
+            "email": "chris.woodford@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/http-foundation": "2.2.*"  
+    },
+    "autoload": {
+        "psr-0": { "Foursquare": "lib/" }
+    },
+    "target-dir": "Foursquare",
+    "minimum-stability": "dev"
+}
