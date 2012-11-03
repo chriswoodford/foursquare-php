@@ -17,7 +17,15 @@ class SymfonyHttpClient extends HttpClientAdapter
         $request = HttpFoundation\Request::create($uri, 'GET', $params);
         $uri = $request->getUri();
 
-        return file_get_contents($uri);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $uri);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        return $response;
 
     }
 

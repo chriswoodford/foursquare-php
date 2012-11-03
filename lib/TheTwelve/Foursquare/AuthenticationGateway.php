@@ -108,7 +108,8 @@ class AuthenticationGateway extends Gateway
         );
 
         $response = json_decode($this->client->get($this->accessTokenUri, $uriParams));
-        return $response['access_token'];
+        $this->token = $response['access_token'];
+        return $this->token;
 
     }
 

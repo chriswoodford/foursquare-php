@@ -33,4 +33,15 @@ abstract class Gateway
 
     }
 
+    /**
+     * get the auth token
+     * @return string
+     */
+    public function getToken()
+    {
+
+        return $this->token;
+
+    }
+
 }
