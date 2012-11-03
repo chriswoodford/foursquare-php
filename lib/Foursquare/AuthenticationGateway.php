@@ -12,7 +12,7 @@ class AuthenticationGateway
     protected $secret;
 
     /** @var string */
-    protected $authenticationUri;
+    protected $authorizeUri;
 
     /** @var string */
     protected $accessTokenUri;
@@ -39,7 +39,7 @@ class AuthenticationGateway
      * @param string $id
      * @param string $secret
      */
-    public function setAuthenticationParams($id, $secret)
+    public function setAuthorizationParams($id, $secret)
     {
 
         $this->id = $id;
@@ -51,16 +51,16 @@ class AuthenticationGateway
      * set the authentication uri
      * @param string $uri
      */
-    public function setAuthenticationUri($uri)
+    public function setAuthorizeUri($uri)
     {
 
-        $this->authenticationUri = $uri;
+        $this->authorizeUri = $uri;
 
     }
 
     /**
      * set the access token uri
-     * @param unknown_type $uri
+     * @param string $uri
      */
     public function setAccessTokenUri($uri)
     {
