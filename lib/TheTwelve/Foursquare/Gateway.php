@@ -12,10 +12,7 @@ abstract class Gateway
     protected $token;
 
     /** @var string */
-    protected $endpointUri;
-
-    /** @var string */
-    protected $version;
+    protected $requestUri;
 
     /**
      * initialize the gateway
@@ -25,51 +22,32 @@ abstract class Gateway
     {
 
         $this->client = $client;
-        $this->version = 'v2';
+
+    }
+
+    /**
+     * set the request uri
+     * @param string $uri
+     * @return TheTwelve\Foursquare\Gateway
+     */
+    public function setRequestUri($requestUri)
+    {
+
+        $this->requestUri = $requestUri;
+        return $this;
 
     }
 
     /**
      * set the auth token
      * @param string $token
+     * @return TheTwelve\Foursquare\Gateway
      */
     public function setToken($token)
     {
 
         $this->token = $token;
-
-    }
-
-    /**
-     * get the auth token
-     * @return string
-     */
-    public function getToken()
-    {
-
-        return $this->token;
-
-    }
-
-    /**
-     * set the api endpoint uri
-     * @param string $uri
-     */
-    public function setEndpointUri($uri)
-    {
-
-        $this->endpointUri = $uri;
-
-    }
-
-    /**
-     * set the version
-     * @param string $version
-     */
-    public function setVersion($version)
-    {
-
-        $this->version = $version;
+        return $this;
 
     }
 

@@ -4,13 +4,33 @@ class TheTwelve_Foursquare_AuthenticationGatewayTest
     extends PHPUnit_Framework_TestCase
 {
 
+    public function testProperties()
+    {
+
+        $gateway = $this->getAuthenticationGateway();
+
+        $this->assertAttributeEquals($_GET['clientId'], 'id', $gateway);
+        $this->assertAttributeEquals($_GET['clientSecret'], 'secret', $gateway);
+        $this->assertAttributeEquals($_GET['authorizeUri'], 'authorizeUri', $gateway);
+        $this->assertAttributeEquals($_GET['accessTokenUri'], 'accessTokenUri', $gateway);
+        $this->assertAttributeEquals($_GET['redirectUri'], 'redirectUri', $gateway);
+
+    }
+
     public function testLogin()
     {
 
         $gateway = $this->getAuthenticationGateway();
-        $gateway->initiateLogin();
+        //$gateway->initiateLogin();
 
 
+
+    }
+
+    public function testAuthentication()
+    {
+
+        $gateway = $this->getAuthenticationGateway();
 
     }
 

@@ -24,45 +24,53 @@ class AuthenticationGateway extends Gateway
      * set authentication params
      * @param string $id
      * @param string $secret
+     * @return TheTwelve\Foursquare\AuthenticationGateway
      */
     public function setAuthorizationParams($id, $secret)
     {
 
         $this->id = $id;
         $this->secret = $secret;
+        return $this;
 
     }
 
     /**
      * set the authentication uri
      * @param string $uri
+     * @return TheTwelve\Foursquare\AuthenticationGateway
      */
     public function setAuthorizeUri($uri)
     {
 
         $this->authorizeUri = $uri;
+        return $this;
 
     }
 
     /**
      * set the access token uri
      * @param string $uri
+     * @return TheTwelve\Foursquare\AuthenticationGateway
      */
     public function setAccessTokenUri($uri)
     {
 
         $this->accessTokenUri = $uri;
+        return $this;
 
     }
 
     /**
      * set the redirect uri
      * @param string $uri
+     * @return TheTwelve\Foursquare\AuthenticationGateway
      */
     public function setRedirectUri($uri)
     {
 
         $this->redirectUri = $uri;
+        return $this;
 
     }
 
@@ -119,8 +127,9 @@ class AuthenticationGateway extends Gateway
         );
 
         $response = json_decode($this->client->get($this->accessTokenUri, $uriParams));
-        $this->token = isset($response->access_token)
+        $token = isset($response->access_token)
             ? $response->access_token : null;
+
         return $this->token;
 
     }
