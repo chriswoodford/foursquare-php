@@ -11,6 +11,7 @@ class TheTwelve_Foursquare_AuthenticationGatewayTest
         $gateway->initiateLogin();
 
 
+
     }
 
     protected function getAuthenticationGateway()

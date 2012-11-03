@@ -74,7 +74,11 @@ class AuthenticationGateway extends Gateway
     public function initiateLogin()
     {
 
-        //TODO: add validation
+        if (!$this->canInitiateLogin()) {
+            throw new \RuntimeException(
+            	'Cannot authenticate user, dependencies are missing'
+            );
+        }
 
         $uriParams = array(
             'client_id' => $this->id,
@@ -83,7 +87,6 @@ class AuthenticationGateway extends Gateway
         );
 
         $uri = $this->authorizeUri . '?' . http_build_query($uriParams);
-
         return $this->client->redirect($uri);
 
     }
@@ -97,7 +100,15 @@ class AuthenticationGateway extends Gateway
     public function authenticateUser($code)
     {
 
-        //TODO: add validation
+        if (!$this->canAuthenticateUser()) {
+            throw new \RuntimeException(
+            	'Cannot authenticate user, dependencies are missing'
+            );
+        }
+
+        if (!$this->codeIsValid($code)) {
+            throw new \InvalidArgumentException('Foursquare code is invalid');
+        }
 
         $uriParams = array(
             'client_id' => $this->id,
@@ -108,8 +119,44 @@ class AuthenticationGateway extends Gateway
         );
 
         $response = json_decode($this->client->get($this->accessTokenUri, $uriParams));
-        $this->token = $response->access_token;
+        $this->token = isset($response->access_token)
+            ? $response->access_token : null;
         return $this->token;
+
+    }
+
+    /**
+     * assert that it is possible to proceed with initiating the login
+     * @return boolean
+     */
+    protected function canInitiateLogin()
+    {
+
+        return $this->id && $this->redirectUri && $this->authorizeUri;
+
+    }
+
+    /**
+     * assert that it is possible to proceed with authenticating the user
+     * @return boolean
+     */
+    protected function canAuthenticateUser()
+    {
+
+        return $this->id && $this->secret
+            && $this->redirectUri && $this->accessTokenUri;
+
+    }
+
+    /**
+     * assert that the foursquare code is valid for use
+     * @param string $code
+     * @return boolean
+     */
+    protected function codeIsValid($code)
+    {
+
+        return !is_null($code);
 
     }
 

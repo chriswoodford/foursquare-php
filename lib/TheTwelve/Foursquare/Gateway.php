@@ -87,10 +87,35 @@ abstract class Gateway
         $params['oauth_token'] = $this->token;
         $params['v'] = date('Ymd');
 
-        $response = json_decode($this->client->get($uri, $params));
+        switch ($method) {
 
-        // TODO: handle meta data from response
-        // "meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":0}}]
+            case 'GET':
+                $response = json_decode($this->client->get($uri, $params));
+
+            default:
+                //TODO throw not implemented exception
+
+        }
+
+
+        if (isset($response->meta)) {
+
+            if (isset($response->meta->code)
+                && $response->meta->code != 200
+            ) {
+                //TODO handle case
+            }
+
+            if (isset($response->meta->notifications)
+                && is_array($response->meta->notifications)
+                && count($response->meta->notifications)
+            ) {
+
+                //TODO handle notifications. loggging
+
+            }
+
+        }
 
         return $response->response;
 
