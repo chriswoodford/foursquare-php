@@ -4,4 +4,8 @@
         <includePath></includePath>
     </php>
     
+    <testsuite name="HttpClient Test Suite">
+        <directory>./lib/TheTwelve/Foursquare/HttpClient</directory>
+    </testsuite>
+    
 </phpunit>

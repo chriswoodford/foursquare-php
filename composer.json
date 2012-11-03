@@ -8,7 +8,8 @@
     "authors": [
         {
             "name": "Chris Woodford",
-            "email": "chris.woodford@gmail.com"
+            "email": "chris.woodford@gmail.com",
+            "homepage": "ideaphp.com"
         }
     ],
     "require": {
@@ -16,8 +17,6 @@
         "symfony/http-foundation": "2.2.*"  
     },
     "autoload": {
-        "psr-0": { "Foursquare": "lib/" }
-    },
-    "target-dir": "Foursquare",
-    "minimum-stability": "dev"
+        "psr-0": { "TheTwelve\\Foursquare": "lib" }
+    }
 }

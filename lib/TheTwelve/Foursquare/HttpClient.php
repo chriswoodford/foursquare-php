@@ -1,6 +1,6 @@
 <?php
 
-namespace Foursquare;
+namespace TheTwelve\Foursquare;
 
 interface HttpClient
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Foursquare\HttpClient;
+namespace TheTwelve\Foursquare\HttpClient;
 
 class SymfonyHttpClient extends HttpClientAdapter
 {

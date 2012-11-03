@@ -1,6 +1,6 @@
 <?php
 
-namespace Foursquare;
+namespace TheTwelve\Foursquare;
 
 class AuthenticationGateway
 {
@@ -20,12 +20,12 @@ class AuthenticationGateway
     /** @var string */
     protected $redirectUri;
 
-    /** @var Foursquare\HttpClient */
+    /** @var TheTwelve\Foursquare\HttpClient */
     protected $client;
 
     /**
      * initialize the gateway
-     * @param Foursquare\HttpClient;
+     * @param TheTwelve\Foursquare\HttpClient;
      */
     public function __construct(HttpClient $client)
     {
