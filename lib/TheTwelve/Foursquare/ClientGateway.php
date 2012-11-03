@@ -13,9 +13,10 @@ class ClientGateway extends Gateway
     {
 
         $gateway = new UserGateway($this->client);
+        $gateway->setEndpointUri($this->endpointUri);
         $gateway->setToken($this->token);
-        return $gateway;
 
+        return $gateway;
 
     }
 

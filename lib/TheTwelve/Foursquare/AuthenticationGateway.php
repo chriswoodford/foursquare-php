@@ -103,7 +103,7 @@ class AuthenticationGateway extends Gateway
             'client_id' => $this->id,
             'client_secret' => $this->secret,
             'grant_type' => 'authorization_code',
-            'redirect_url' => $this->redirectUri,
+            'redirect_uri' => $this->redirectUri,
             'code' => $code,
         );
 

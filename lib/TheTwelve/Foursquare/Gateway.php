@@ -11,6 +11,12 @@ abstract class Gateway
     /** @var string */
     protected $token;
 
+    /** @var string */
+    protected $endpointUri;
+
+    /** @var string */
+    protected $version;
+
     /**
      * initialize the gateway
      * @param TheTwelve\Foursquare\HttpClient;
@@ -19,6 +25,7 @@ abstract class Gateway
     {
 
         $this->client = $client;
+        $this->version = 'v2';
 
     }
 
@@ -41,6 +48,51 @@ abstract class Gateway
     {
 
         return $this->token;
+
+    }
+
+    /**
+     * set the api endpoint uri
+     * @param string $uri
+     */
+    public function setEndpointUri($uri)
+    {
+
+        $this->endpointUri = $uri;
+
+    }
+
+    /**
+     * set the version
+     * @param string $version
+     */
+    public function setVersion($version)
+    {
+
+        $this->version = $version;
+
+    }
+
+    /**
+     * make a request to the api
+     * @param string $uri
+     * @param array $params
+     * @param string $method
+     * @return stdClass
+     */
+    protected function makeApiRequest($uri, array $params = array(), $method = 'GET')
+    {
+
+        $uri = $this->endpointUri . '/' . $this->version . $uri;
+        $params['oauth_token'] = $this->token;
+        $params['v'] = date('Ymd');
+
+        $response = json_decode($this->client->get($uri, $params));
+
+        // TODO: handle meta data from response
+        // "meta":{"code":200},"notifications":[{"type":"notificationTray","item":{"unreadCount":0}}]
+
+        return $response->response;
 
     }
 
