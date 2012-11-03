@@ -4,6 +4,15 @@ class TheTwelve_Foursquare_HttpClient_SymfonyHttpClientTest
     extends PHPUnit_Framework_TestCase
 {
 
+    public function testGet()
+    {
+
+        $client = new \TheTwelve\Foursquare\HttpClient\SymfonyHttpClient();
+        $result = $client->get('http://google.ca');
+echo $result; die;
+
+    }
+
     public function testRedirect()
     {
 

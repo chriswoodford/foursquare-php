@@ -2,10 +2,24 @@
 
 namespace TheTwelve\Foursquare\HttpClient;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation;
 
 class SymfonyHttpClient extends HttpClientAdapter
 {
+
+    /**
+     * (non-PHPdoc)
+     * @see TheTwelve\Foursquare.HttpClient::get()
+     */
+    public function get($uri, array $params = array())
+    {
+
+        $request = HttpFoundation\Request::create($uri, 'GET', $params);
+        $uri = $request->getUri();
+
+        return file_get_contents($uri);
+
+    }
 
     /**
      * (non-PHPdoc)
@@ -14,7 +28,7 @@ class SymfonyHttpClient extends HttpClientAdapter
     public function redirect($uri)
     {
 
-        $response = new RedirectResponse($uri);
+        $response = new HttpFoundation\RedirectResponse($uri);
         $response->sendHeaders();
         return $response;
 

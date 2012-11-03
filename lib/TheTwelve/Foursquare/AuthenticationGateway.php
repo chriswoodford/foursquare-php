@@ -66,6 +66,11 @@ class AuthenticationGateway extends Gateway
 
     }
 
+    /**
+     * initiate the login process
+     * @see https://developer.foursquare.com/overview/auth.html
+     * @return mixed
+     */
     public function initiateLogin()
     {
 
@@ -83,6 +88,12 @@ class AuthenticationGateway extends Gateway
 
     }
 
+    /**
+     * authenticate the user with the response code
+     * @see https://developer.foursquare.com/overview/auth.html
+     * @param string $code
+     * @return string
+     */
     public function authenticateUser($code)
     {
 
@@ -96,7 +107,8 @@ class AuthenticationGateway extends Gateway
             'code' => $code,
         );
 
-
+        $response = json_decode($this->client->get($this->accessTokenUri, $uriParams));
+        return $response['access_token'];
 
     }
 
