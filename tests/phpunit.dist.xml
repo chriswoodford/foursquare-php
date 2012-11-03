@@ -2,10 +2,20 @@
 
     <php>
         <includePath></includePath>
+        <get name="clientId" value=""/>
+        <get name="clientSecret" value=""/>
+        <get name="authorizeUri" value=""/>
+        <get name="accessTokenUri" value=""/>
+        <get name="redirectUri" value=""/>
     </php>
     
     <testsuite name="HttpClient Test Suite">
         <directory>./lib/TheTwelve/Foursquare/HttpClient</directory>
     </testsuite>
+
+    <testsuite name="Authorization Test Suite">
+        <file>./lib/TheTwelve/Foursquare/AuthorizationGateway</file>
+    </testsuite>
+
     
 </phpunit>

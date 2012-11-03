@@ -77,7 +77,9 @@ class AuthenticationGateway extends Gateway
             'redirect_uri' => $this->redirectUri,
         );
 
-        header('Location: ' . $this->authorizeUri . '?' . http_build_query($uriParams));
+        $uri = $this->authorizeUri . '?' . http_build_query($uriParams);
+
+        return $this->client->redirect($uri);
 
     }
 
