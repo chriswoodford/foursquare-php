@@ -16,7 +16,6 @@ class UserGateway extends Gateway
     {
 
         parent::__construct($client);
-
         $this->userId = 'self';
 
     }
@@ -40,8 +39,8 @@ class UserGateway extends Gateway
     public function getUser()
     {
 
-        $uri = '/users/' . $this->userId;
-        $response = $this->makeApiRequest($uri);
+        $resource = '/users/' . $this->userId;
+        $response = $this->makeApiRequest($resource);
 
         return $response->user;
 

@@ -8,7 +8,7 @@ class TheTwelve_Foursquare_HttpClient_SymfonyHttpClientTest
     {
 
         $client = new \TheTwelve\Foursquare\HttpClient\SymfonyHttpClient();
-        $result = $client->get('https://foursquare.com/oauth2/access_token');
+        //$result = $client->get('https://foursquare.com/oauth2/access_token');
 
     }
 
@@ -16,7 +16,7 @@ class TheTwelve_Foursquare_HttpClient_SymfonyHttpClientTest
     {
 
         $client = new \TheTwelve\Foursquare\HttpClient\SymfonyHttpClient();
-        $result = $client->redirect('http://google.ca');
+        $result = $client->redirect('http://example.com');
 
         $this->assertTrue($result instanceof \Symfony\Component\HttpFoundation\RedirectResponse);
 

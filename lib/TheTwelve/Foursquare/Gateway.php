@@ -33,7 +33,7 @@ abstract class Gateway
     public function setRequestUri($requestUri)
     {
 
-        $this->requestUri = $requestUri;
+        $this->requestUri = rtrim($requestUri, '/');
         return $this;
 
     }
@@ -53,28 +53,29 @@ abstract class Gateway
 
     /**
      * make a request to the api
-     * @param string $uri
+     * @param string $resource
      * @param array $params
      * @param string $method
      * @return stdClass
      */
-    protected function makeApiRequest($uri, array $params = array(), $method = 'GET')
+    protected function makeApiRequest($resource, array $params = array(), $method = 'GET')
     {
 
-        $uri = $this->endpointUri . '/' . $this->version . $uri;
+        $uri = $this->requestUri . '/' . $resource;
+
         $params['oauth_token'] = $this->token;
         $params['v'] = date('Ymd');
 
         switch ($method) {
 
             case 'GET':
-                $response = json_decode($this->client->get($uri, $params));
+                $response = json_decode($this->client->get($this->requestUri, $params));
+                break;
 
             default:
                 //TODO throw not implemented exception
 
         }
-
 
         if (isset($response->meta)) {
 
