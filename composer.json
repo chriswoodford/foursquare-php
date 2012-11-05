@@ -14,7 +14,7 @@
     ],
     "require": {
         "php": ">=5.3.3",  
-        "curl-ext": "*",
+        "curl-ext": "*"
     },
     "suggest": {
         "symfony/http-foundation": "2.2.*",
