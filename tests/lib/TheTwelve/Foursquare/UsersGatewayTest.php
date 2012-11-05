@@ -13,8 +13,8 @@ class TheTwelve_Foursquare_UserGatewayTest
 
         $gateway = $this->getUserGateway($client, $uri, $token);
 
-        $this->assertTrue($gateway instanceof \TheTwelve\Foursquare\Gateway);
-        $this->assertTrue($gateway instanceof \TheTwelve\Foursquare\UserGateway);
+        $this->assertTrue($gateway instanceof \TheTwelve\Foursquare\EndpointGateway);
+        $this->assertTrue($gateway instanceof \TheTwelve\Foursquare\UsersGateway);
 
         $this->assertAttributeEquals($client, 'client', $gateway);
         $this->assertAttributeEquals($uri, 'requestUri', $gateway);
@@ -111,7 +111,7 @@ class TheTwelve_Foursquare_UserGatewayTest
     protected function getUserGateway($client, $uri, $token)
     {
 
-        $gateway = new \TheTwelve\Foursquare\UserGateway($client);
+        $gateway = new \TheTwelve\Foursquare\UsersGateway($client);
         $gateway->setRequestUri($uri);
         $gateway->setToken($token);
 

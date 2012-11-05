@@ -2,7 +2,7 @@
 
 namespace TheTwelve\Foursquare;
 
-class UserGateway extends Gateway
+class UsersGateway extends EndpointGateway
 {
 
     /** @var string */
@@ -127,6 +127,5 @@ class UserGateway extends Gateway
      */
     public function getVenueHistory()
     {}
-
 
 }

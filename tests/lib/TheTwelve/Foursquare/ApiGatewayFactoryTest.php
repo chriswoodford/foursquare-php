@@ -33,7 +33,7 @@ class TheTwelve_Foursquare_ApiGatewayFactoryTest
             $_GET['redirectUri']
         );
 
-        $this->assertTrue($gateway instanceof \TheTwelve\Foursquare\Gateway);
+        $this->assertTrue($gateway instanceof \TheTwelve\Foursquare\EndpointGateway);
         $this->assertTrue($gateway instanceof \TheTwelve\Foursquare\AuthenticationGateway);
 
         $this->assertAttributeEquals($_GET['clientId'], 'id', $gateway);
@@ -66,8 +66,8 @@ class TheTwelve_Foursquare_ApiGatewayFactoryTest
 
         $gateway = $factory->getUserGateway();
 
-        $this->assertTrue($gateway instanceof \TheTwelve\Foursquare\Gateway);
-        $this->assertTrue($gateway instanceof \TheTwelve\Foursquare\UserGateway);
+        $this->assertTrue($gateway instanceof \TheTwelve\Foursquare\EndpointGateway);
+        $this->assertTrue($gateway instanceof \TheTwelve\Foursquare\UsersGateway);
 
         $this->assertAttributeEquals($client, 'client', $gateway);
         $this->assertAttributeEquals($token, 'token', $gateway);

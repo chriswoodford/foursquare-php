@@ -104,7 +104,7 @@ class ApiGatewayFactory
             throw new \RuntimeException('No valid oauth token was found');
         }
 
-        $gateway = new UserGateway($this->client);
+        $gateway = new UsersGateway($this->client);
         $gateway->setRequestUri($this->getRequestUri())
                 ->setToken($this->token);
 

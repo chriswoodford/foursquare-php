@@ -2,7 +2,7 @@
 
 namespace TheTwelve\Foursquare;
 
-class AuthenticationGateway extends Gateway
+class AuthenticationGateway extends EndpointGateway
 {
 
     /** @var string */

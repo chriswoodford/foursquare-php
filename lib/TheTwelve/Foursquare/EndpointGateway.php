@@ -2,7 +2,7 @@
 
 namespace TheTwelve\Foursquare;
 
-abstract class Gateway
+abstract class EndpointGateway
 {
 
     /** @var TheTwelve\Foursquare\HttpClient */
@@ -28,7 +28,7 @@ abstract class Gateway
     /**
      * set the request uri
      * @param string $uri
-     * @return TheTwelve\Foursquare\Gateway
+     * @return TheTwelve\Foursquare\EndpointGateway
      */
     public function setRequestUri($requestUri)
     {
@@ -41,7 +41,7 @@ abstract class Gateway
     /**
      * set the auth token
      * @param string $token
-     * @return TheTwelve\Foursquare\Gateway
+     * @return TheTwelve\Foursquare\EndpointGateway
      */
     public function setToken($token)
     {
