@@ -21,7 +21,6 @@ class TheTwelve_Foursquare_AuthenticationGatewayTest
     {
 
         $gateway = $this->getAuthenticationGateway();
-        //$gateway->initiateLogin();
 
 
 
@@ -37,7 +36,9 @@ class TheTwelve_Foursquare_AuthenticationGatewayTest
     protected function getAuthenticationGateway()
     {
 
-        $client = new \TheTwelve\Foursquare\HttpClient\SymfonyHttpClient();
+        $client = $this->getMockForAbstractClass(
+        	'TheTwelve\Foursquare\HttpClient'
+        );
 
         $gateway = new \TheTwelve\Foursquare\AuthenticationGateway($client);
         $gateway->setAuthorizationParams($_GET['clientId'], $_GET['clientSecret']);

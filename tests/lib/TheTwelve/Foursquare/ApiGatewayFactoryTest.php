@@ -7,23 +7,35 @@ class TheTwelve_Foursquare_ApiGatewayFactoryTest
     public function testProperties()
     {
 
-        $client = new \TheTwelve\Foursquare\HttpClient\SymfonyHttpClient();
-        $token = 'XXXX1234567890FFF';
+        $client = $this->getMockForAbstractClass(
+        	'TheTwelve\Foursquare\HttpClient'
+        );
 
-        $factory = $this->getFactory($client, $token);
+        $token = 'XXXX1234567890FFF';
+        $version = 'v2';
+        $requestUri = $_GET['endpointUri'] . '/' . $version;
+
+        $factory = $this->createFactory($client, $token);
 
         $this->assertAttributeEquals($client, 'client', $factory);
-        $this->assertAttributeEquals('v2', 'version', $factory);
+        $this->assertAttributeEquals($version, 'version', $factory);
         $this->assertAttributeEquals($_GET['endpointUri'], 'endpointUri', $factory);
         $this->assertAttributeEquals($token, 'token', $factory);
+
+        $gateway = $factory->getUserGateway();
+
+        $this->assertAttributeEquals($requestUri, 'requestUri', $factory);
 
     }
 
     public function testAuthenticationGateway()
     {
 
-        $client = new \TheTwelve\Foursquare\HttpClient\SymfonyHttpClient();
-        $factory = $this->getFactory($client);
+        $client = $this->getMockForAbstractClass(
+        	'TheTwelve\Foursquare\HttpClient'
+        );
+
+        $factory = $this->createFactory($client);
 
         $gateway = $factory->getAuthenticationGateway(
             $_GET['clientId'],
@@ -51,17 +63,13 @@ class TheTwelve_Foursquare_ApiGatewayFactoryTest
     public function testUserGateway()
     {
 
-        $client = new \TheTwelve\Foursquare\HttpClient\SymfonyHttpClient();
+        $client = $this->getMockForAbstractClass(
+        	'TheTwelve\Foursquare\HttpClient'
+        );
+
         $token = 'XXXX1234567890FFF';
 
-        $factory = $this->getFactory($client);
-
-        try {
-            $gateway = $factory->getUserGateway();
-        } catch (\RuntimeException $e) {
-            $this->assertTrue(true);
-        }
-
+        $factory = $this->createFactory($client);
         $factory->setToken($token);
 
         $gateway = $factory->getUserGateway();
@@ -75,7 +83,22 @@ class TheTwelve_Foursquare_ApiGatewayFactoryTest
 
     }
 
-    protected function getFactory($client, $token = null)
+	/**
+     * @expectedException    RuntimeException
+     */
+    public function testUserGatewayWithNoToken()
+    {
+
+        $client = $this->getMockForAbstractClass(
+        	'TheTwelve\Foursquare\HttpClient'
+        );
+
+        $factory = $this->createFactory($client);
+        $gateway = $factory->getUserGateway();
+
+    }
+
+    protected function createFactory($client, $token = null)
     {
 
         $factory = new \TheTwelve\Foursquare\ApiGatewayFactory($client);

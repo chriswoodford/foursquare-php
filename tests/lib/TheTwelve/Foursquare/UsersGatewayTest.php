@@ -7,11 +7,16 @@ class TheTwelve_Foursquare_UserGatewayTest
     public function testProperties()
     {
 
-        $client = new \TheTwelve\Foursquare\HttpClient\StubHttpClient();
+        $client = $this->getMockForAbstractClass(
+        	'TheTwelve\Foursquare\HttpClient'
+        );
+
         $uri = $_GET['endpointUri'] . '/v2';
         $token = 'YYY0987654321ZZZ';
+        $userId = '1234567654321';
 
-        $gateway = $this->getUserGateway($client, $uri, $token);
+        $gateway = $this->createUserGateway($client, $uri, $token);
+        $gateway->setUserId($userId);
 
         $this->assertTrue($gateway instanceof \TheTwelve\Foursquare\EndpointGateway);
         $this->assertTrue($gateway instanceof \TheTwelve\Foursquare\UsersGateway);
@@ -20,16 +25,15 @@ class TheTwelve_Foursquare_UserGatewayTest
         $this->assertAttributeEquals($uri, 'requestUri', $gateway);
         $this->assertAttributeEquals($token, 'token', $gateway);
 
+        $this->assertAttributeEquals($userId, 'userId', $gateway);
+
     }
 
     public function testGetUser()
     {
 
-        $client = new \TheTwelve\Foursquare\HttpClient\StubHttpClient();
         $uri = $_GET['endpointUri'] . '/v2';
         $token = 'YYY0987654321ZZZ';
-
-        $gateway = $this->getUserGateway($client, $uri, $token);
 
         $id = 11587764;
         $firstName = 'Justin';
@@ -47,8 +51,15 @@ class TheTwelve_Foursquare_UserGatewayTest
 		    )
 		);
 
-		$client->setExpectedResponse(json_encode($expectedResponse));
+        $client = $this->getMockForAbstractClass(
+        	'TheTwelve\Foursquare\HttpClient'
+        );
 
+        $client->expects($this->any())
+               ->method('get')
+               ->will($this->returnValue(json_encode($expectedResponse)));
+
+        $gateway = $this->createUserGateway($client, $uri, $token);
         $user = $gateway->getUser();
 
         $this->assertTrue($user instanceof stdClass);
@@ -59,14 +70,31 @@ class TheTwelve_Foursquare_UserGatewayTest
 
     }
 
+    public function testGetLeaderboard()
+    {
+
+    }
+
+    public function testGetRequests()
+    {
+
+    }
+
+    public function testGetSearch()
+    {
+
+    }
+
+    public function testGetBadges()
+    {
+
+    }
+
     public function testGetCheckins()
     {
 
-        $client = new \TheTwelve\Foursquare\HttpClient\StubHttpClient();
         $uri = $_GET['endpointUri'] . '/v2';
         $token = 'YYY0987654321ZZZ';
-
-        $gateway = $this->getUserGateway($client, $uri, $token);
 
         $id = "4e270befae609b2f94ed0546";
         $createdAt = 1311181807;
@@ -91,8 +119,15 @@ class TheTwelve_Foursquare_UserGatewayTest
             )
         );
 
-        $client->setExpectedResponse(json_encode($expectedResponse));
+        $client = $this->getMockForAbstractClass(
+        	'TheTwelve\Foursquare\HttpClient'
+        );
 
+        $client->expects($this->any())
+               ->method('get')
+               ->will($this->returnValue(json_encode($expectedResponse)));
+
+        $gateway = $this->createUserGateway($client, $uri, $token);
         $checkins = $gateway->getCheckins();
 
         $this->assertEquals(1, count($checkins));
@@ -108,7 +143,80 @@ class TheTwelve_Foursquare_UserGatewayTest
 
     }
 
-    protected function getUserGateway($client, $uri, $token)
+    public function testGetFriends()
+    {
+
+        $uri = $_GET['endpointUri'] . '/v2';
+        $token = 'YYY0987654321ZZZ';
+
+        $id = '3130852';
+        $firstName = 'Chris';
+        $lastName = 'Woodford';
+        $relationship = 'friend';
+        $gender = 'male';
+        $homeCity = 'Toronto, Canada';
+
+        $expectedResponse = array(
+            'response' => array(
+                'friends' => array(
+                    array(
+                        'id' => $id,
+                        'firstName' => $firstName,
+                        'lastName' => $lastName,
+                        'relationship' => $relationship,
+                        'gender' => $gender,
+                        'homeCity' => $homeCity,
+                    ),
+                )
+            )
+        );
+
+        $client = $this->getMockForAbstractClass(
+        	'TheTwelve\Foursquare\HttpClient'
+        );
+
+        $client->expects($this->any())
+               ->method('get')
+               ->will($this->returnValue(json_encode($expectedResponse)));
+
+        $gateway = $this->createUserGateway($client, $uri, $token);
+        $friends = $gateway->getFriends();
+
+        $this->assertEquals(1, count($friends));
+        $this->assertTrue(array_key_exists(0, $friends));
+
+        $friend = $friends[0];
+
+        $this->assertEquals($id, $friend->id);
+        $this->assertEquals($firstName, $checkin->firstName);
+        $this->assertEquals($lastName, $checkin->lastName);
+        $this->assertEquals($relationship, $checkin->relationship);
+        $this->assertEquals($gender, $checkin->gender);
+        $this->assertEquals($homeCity, $checkin->homeCity);
+
+    }
+
+    public function testGetLists()
+    {
+
+    }
+
+    public function testGetMayorships()
+    {
+
+    }
+
+    public function testGetPhotos()
+    {
+
+    }
+
+    public function getVenueHistory()
+    {
+
+    }
+
+    protected function createUserGateway($client, $uri, $token)
     {
 
         $gateway = new \TheTwelve\Foursquare\UsersGateway($client);
