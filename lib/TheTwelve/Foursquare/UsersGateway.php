@@ -51,7 +51,11 @@ class UsersGateway extends EndpointGateway
      * @see https://developer.foursquare.com/docs/users/leaderboard
      */
     public function getLeaderboard()
-    {}
+    {
+
+        $resource = '/users/leaderboard';
+
+    }
 
     /**
      * Shows a user the list of users with whom they have a pending friend
@@ -60,21 +64,36 @@ class UsersGateway extends EndpointGateway
      * @see https://developer.foursquare.com/docs/users/requests
      */
     public function getRequests()
-    {}
+    {
+
+        $resource = '/users/requests';
+
+    }
 
     /**
      * Helps a user locate friends.
      * @see https://developer.foursquare.com/docs/users/search
+     * @param array $options
      */
-    public function search()
-    {}
+    public function search(array $options = array())
+    {
+
+
+    }
 
     /**
      * Returns badges for a given user.
      * @see https://developer.foursquare.com/docs/users/badges
      */
     public function getBadges()
-    {}
+    {
+
+        $uri = $this->buildUserResourceUri('badges');
+        $response = $this->makeApiRequest($uri);
+
+        return $response->badges;
+
+    }
 
     /**
      * Returns a history of checkins for the authenticated user.
@@ -85,7 +104,7 @@ class UsersGateway extends EndpointGateway
     public function getCheckins(array $options = array())
     {
 
-        $uri = '/users/' . $this->userId . '/checkins';
+        $uri = $this->buildUserResourceUri('checkins');
         $response = $this->makeApiRequest($uri, $options);
 
         return $response->checkins->items;
@@ -95,37 +114,89 @@ class UsersGateway extends EndpointGateway
     /**
      * Returns an array of a user's friends.
      * @see https://developer.foursquare.com/docs/users/friends
+     * @param array $options
      */
-    public function getFriends()
-    {}
+    public function getFriends(array $options = array())
+    {
+
+        $uri = $this->buildUserResourceUri('friends');
+        $response = $this->makeApiRequest($uri, $options);
+
+        return $response->friends->items;
+
+    }
 
     /**
      * A User's Lists.
      * @see https://developer.foursquare.com/docs/users/lists
+     * @param array $options
      */
-    public function getLists()
-    {}
+    public function getLists(array $options = array())
+    {
+
+        $uri = $this->buildUserResourceUri('lists');
+        $response = $this->makeApiRequest($uri, $options);
+
+        return $response->lists;
+
+    }
 
     /**
      * Returns a user's mayorships.
      * @see https://developer.foursquare.com/docs/users/mayorships
+     * @param array $options
      */
     public function getMayorships()
-    {}
+    {
+
+        $uri = $this->buildUserResourceUri('mayorships');
+        $response = $this->makeApiRequest($uri);
+
+        return $response->mayorships;
+
+    }
 
     /**
      * Returns photos from a user.
      * @see https://developer.foursquare.com/docs/users/photos
+     * @param array $options
      */
-    public function getPhotos()
-    {}
+    public function getPhotos(array $options = array())
+    {
+
+        $uri = $this->buildUserResourceUri('photos');
+        $response = $this->makeApiRequest($uri);
+
+        return $response->photos;
+
+    }
 
     /**
      * Returns a list of all venues visited by the specified user, along with
      * how many visits and when they were last there.
      * @see https://developer.foursquare.com/docs/users/venuehistory
+     * @param array $options
      */
-    public function getVenueHistory()
-    {}
+    public function getVenueHistory(array $options = array())
+    {
+
+        $uri = $this->buildUserResourceUri('venuehistory');
+        $response = $this->makeApiRequest($uri);
+
+        return $response->venues;
+
+    }
+
+    /**
+     * build the resource URI
+     * @param string $resource
+     * @return string
+     */
+    protected function buildUserResourceUri($resource)
+    {
+
+        return '/users/' . $this->userId . '/' . $resource;
+
+    }
 
 }

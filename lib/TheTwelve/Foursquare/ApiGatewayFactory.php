@@ -135,6 +135,7 @@ class ApiGatewayFactory
     {
 
         return $this->token ? true : false;
+
     }
 
 }
