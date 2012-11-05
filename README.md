@@ -1,8 +1,7 @@
 # foursquare-php by TheTwelve Labs
 ================================
 
-A(nother) PHP Foursquare API client
-
+A(nother) PHP Foursquare API client  
 [https://developer.foursquare.com/docs/](https://developer.foursquare.com/docs/)
 
 ## Installation
@@ -41,7 +40,7 @@ foursquare client into your project.
       $factory->setEndpointUri('https://api.foursquare.com');
       $factory->useVersion(2);
 
-### Begin authenticate with Foursquare
+### Begin authentication with Foursquare
 
       $auth = $factory->getAuthenticationGateway(
           'YOUR_CLIENT_ID',
@@ -53,7 +52,7 @@ foursquare client into your project.
 
       $auth->initiateLogin();
 
-### Foursquare redirects user after successful login
+### Foursquare redirects the user back to you after a successful login
 
       $code = $_GET['code'];
       $token = $authGateway->authenticateUser($code);
