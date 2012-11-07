@@ -85,7 +85,7 @@ abstract class EndpointGateway
     protected function makeApiRequest($resource, array $params = array(), $method = 'GET')
     {
 
-        $uri = $this->requestUri . '/' . $resource;
+        $uri = $this->requestUri . '/' . ltrim($resource, '/');
 
         // apply a dated "version"
         $params['v'] = date('Ymd');
@@ -93,13 +93,15 @@ abstract class EndpointGateway
         switch ($method) {
 
             case 'GET':
-                $response = json_decode($this->client->get($this->requestUri, $params));
+                $response = json_decode($this->client->get($uri, $params));
                 break;
 
             default:
                 //TODO throw not implemented exception
 
         }
+
+        //TODO check headers for api request limit
 
         if (isset($response->meta)) {
 

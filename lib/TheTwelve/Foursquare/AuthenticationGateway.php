@@ -127,7 +127,7 @@ class AuthenticationGateway extends EndpointGateway
         );
 
         $response = json_decode($this->client->get($this->accessTokenUri, $uriParams));
-        $token = isset($response->access_token)
+        $this->token = isset($response->access_token)
             ? $response->access_token : null;
 
         return $this->token;

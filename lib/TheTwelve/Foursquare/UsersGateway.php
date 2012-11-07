@@ -41,7 +41,6 @@ class UsersGateway extends EndpointGateway
 
         $resource = '/users/' . $this->userId;
         $response = $this->makeAuthenticatedApiRequest($resource);
-
         return $response->user;
 
     }

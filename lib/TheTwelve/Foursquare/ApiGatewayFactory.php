@@ -102,7 +102,10 @@ class ApiGatewayFactory
     {
 
         $gateway = new UsersGateway($this->client);
-        $gateway->setUserId($userId);
+
+        if (!is_null($userId)) {
+            $gateway->setUserId($userId);
+        }
 
         $this->injectGatewayDependencies($gateway);
         return $gateway;
