@@ -1,6 +1,5 @@
 {
     "name": "thetwelvelabs/foursquare",
-    "type": "library",
     "description": "Foursquare API Client",
     "keywords": ["foursquare"],
     "homepage": "http://thetwelvelabs.com",

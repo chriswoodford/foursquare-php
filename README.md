@@ -1,4 +1,4 @@
-# foursquare-php by TheTwelve Labs
+# Foursquare API Client by TheTwelve Labs
 ================================
 
 A(nother) PHP Foursquare API client  
