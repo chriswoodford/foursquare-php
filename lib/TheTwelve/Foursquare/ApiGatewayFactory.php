@@ -156,23 +156,8 @@ class ApiGatewayFactory
     protected function injectGatewayDependencies(EndpointGateway $gateway)
     {
 
-        if (!$this->hasValidToken()) {
-            throw new \RuntimeException('No valid oauth token was found');
-        }
-
         $gateway->setRequestUri($this->getRequestUri())
                 ->setToken($this->token);
-
-    }
-
-    /**
-     * checks if a valid token exists
-     * @return boolean
-     */
-    protected function hasValidToken()
-    {
-
-        return $this->token ? true : false;
 
     }
 

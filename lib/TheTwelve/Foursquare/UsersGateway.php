@@ -40,7 +40,7 @@ class UsersGateway extends EndpointGateway
     {
 
         $resource = '/users/' . $this->userId;
-        $response = $this->makeApiRequest($resource);
+        $response = $this->makeAuthenticatedApiRequest($resource);
 
         return $response->user;
 
@@ -54,7 +54,7 @@ class UsersGateway extends EndpointGateway
     {
 
         $resource = '/users/leaderboard';
-        $response = $this->makeApiRequest($resource);
+        $response = $this->makeAuthenticatedApiRequest($resource);
 
         return $response->leaderboard->items;
     }
@@ -69,7 +69,7 @@ class UsersGateway extends EndpointGateway
     {
 
         $resource = '/users/requests';
-        $response = $this->makeApiRequest($resource);
+        $response = $this->makeAuthenticatedApiRequest($resource);
 
         return $response->requests;
 
@@ -84,7 +84,7 @@ class UsersGateway extends EndpointGateway
     {
 
         $resource = '/users/search';
-        $response = $this->makeApiRequest($resource);
+        $response = $this->makeAuthenticatedApiRequest($resource);
 
         return $response->results;
 
@@ -98,7 +98,7 @@ class UsersGateway extends EndpointGateway
     {
 
         $uri = $this->buildUserResourceUri('badges');
-        $response = $this->makeApiRequest($uri);
+        $response = $this->makeAuthenticatedApiRequest($uri);
 
         return $response->sets->badges;
 
@@ -114,7 +114,7 @@ class UsersGateway extends EndpointGateway
     {
 
         $uri = $this->buildUserResourceUri('checkins');
-        $response = $this->makeApiRequest($uri, $options);
+        $response = $this->makeAuthenticatedApiRequest($uri, $options);
 
         return $response->checkins->items;
 
@@ -129,7 +129,7 @@ class UsersGateway extends EndpointGateway
     {
 
         $uri = $this->buildUserResourceUri('friends');
-        $response = $this->makeApiRequest($uri, $options);
+        $response = $this->makeAuthenticatedApiRequest($uri, $options);
 
         return $response->friends->items;
 
@@ -144,7 +144,7 @@ class UsersGateway extends EndpointGateway
     {
 
         $uri = $this->buildUserResourceUri('lists');
-        $response = $this->makeApiRequest($uri, $options);
+        $response = $this->makeAuthenticatedApiRequest($uri, $options);
 
         return $response->lists;
 
@@ -159,7 +159,7 @@ class UsersGateway extends EndpointGateway
     {
 
         $uri = $this->buildUserResourceUri('mayorships');
-        $response = $this->makeApiRequest($uri);
+        $response = $this->makeAuthenticatedApiRequest($uri);
 
         return $response->mayorships->items;
 
@@ -174,7 +174,7 @@ class UsersGateway extends EndpointGateway
     {
 
         $uri = $this->buildUserResourceUri('photos');
-        $response = $this->makeApiRequest($uri);
+        $response = $this->makeAuthenticatedApiRequest($uri);
 
         return $response->photos->items;
 
@@ -190,7 +190,7 @@ class UsersGateway extends EndpointGateway
     {
 
         $uri = $this->buildUserResourceUri('venuehistory');
-        $response = $this->makeApiRequest($uri);
+        $response = $this->makeAuthenticatedApiRequest($uri);
 
         return $response->venues->items;
 
@@ -205,7 +205,7 @@ class UsersGateway extends EndpointGateway
     {
 
         $uri = $this->buildUserResourceUri('approve', $friendId);
-        $response = $this->makeApiRequest($uri);
+        $response = $this->makeAuthenticatedApiRequest($uri);
 
         return $response->user;
 
@@ -220,7 +220,7 @@ class UsersGateway extends EndpointGateway
     {
 
         $uri = $this->buildUserResourceUri('deny', $friendId);
-        $response = $this->makeApiRequest($uri);
+        $response = $this->makeAuthenticatedApiRequest($uri);
 
         return $response->user;
 
@@ -236,7 +236,7 @@ class UsersGateway extends EndpointGateway
     {
 
         $uri = $this->buildUserResourceUri('request', $friendId);
-        $response = $this->makeApiRequest($uri);
+        $response = $this->makeAuthenticatedApiRequest($uri);
 
         return $response->user;
 
@@ -253,7 +253,7 @@ class UsersGateway extends EndpointGateway
     {
 
         $uri = $this->buildUserResourceUri('unfriend', $friendId);
-        $response = $this->makeApiRequest($uri);
+        $response = $this->makeAuthenticatedApiRequest($uri);
 
         return $response->user;
 

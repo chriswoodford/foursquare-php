@@ -70,6 +70,25 @@ class TheTwelve_Foursquare_UserGatewayTest
 
     }
 
+	/**
+     * @expectedException    RuntimeException
+     */
+    public function testUserGatewayWithNoToken()
+    {
+
+        $uri = $_GET['endpointUri'] . '/v2';
+        $token = 'YYY0987654321ZZZ';
+        $client = $this->getMockForAbstractClass(
+        	'TheTwelve\Foursquare\HttpClient'
+        );
+
+        $gateway = $this->createUserGateway($client, $uri, $token);
+        $gateway->setToken(null);
+
+        $user = $gateway->getUser();
+
+    }
+
     public function testGetLeaderboard()
     {
 

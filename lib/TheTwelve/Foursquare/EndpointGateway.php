@@ -52,6 +52,30 @@ abstract class EndpointGateway
     }
 
     /**
+     * assert that there is an active user
+     * @throws RuntimeException
+     */
+    protected function assertHasActiveUser()
+    {
+
+        if (!$this->hasValidToken()) {
+            throw new \RuntimeException('No valid oauth token found.');
+        }
+
+    }
+
+    /**
+     * checks if a valid token exists
+     * @return boolean
+     */
+    protected function hasValidToken()
+    {
+
+        return $this->token ? true : false;
+
+    }
+
+    /**
      * make a request to the api
      * @param string $resource
      * @param array $params
@@ -63,7 +87,7 @@ abstract class EndpointGateway
 
         $uri = $this->requestUri . '/' . $resource;
 
-        $params['oauth_token'] = $this->token;
+        // apply a dated "version"
         $params['v'] = date('Ymd');
 
         switch ($method) {
@@ -97,6 +121,24 @@ abstract class EndpointGateway
         }
 
         return $response->response;
+
+    }
+
+    /**
+     * make an authenticated request to the api
+     * @param string $resource
+     * @param array $params
+     * @param string $method
+     * @return stdClass
+     */
+    protected function makeAuthenticatedApiRequest($resource, array $params = array(), $method = 'GET')
+    {
+
+        $this->assertHasActiveUser();
+
+        $params['oauth_token'] = $this->token;
+
+        return $this->makeApiRequest($resource, $params, $method);
 
     }
 
