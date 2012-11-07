@@ -94,20 +94,43 @@ class ApiGatewayFactory
     }
 
     /**
-     * factory method for user gateway
-     * @return TheTwelve\Foursquare\UserGateway
+     * factory method for users gateway
+     * @param string|null $userId
+     * @return TheTwelve\Foursquare\UsersGateway
      */
-    public function getUserGateway()
+    public function getUsersGateway($userId = null)
     {
 
-        if (!$this->hasValidToken()) {
-            throw new \RuntimeException('No valid oauth token was found');
-        }
-
         $gateway = new UsersGateway($this->client);
-        $gateway->setRequestUri($this->getRequestUri())
-                ->setToken($this->token);
+        $gateway->setUserId($userId);
 
+        $this->injectGatewayDependencies($gateway);
+        return $gateway;
+
+    }
+
+    /**
+     * factory method for venues gateway
+     * @return TheTwelve\Foursquare\VenuesGateway
+     */
+    public function getVenuesGateway()
+    {
+
+        $gateway = new VenuesGateway($this->client);
+        $this->injectGatewayDependencies($gateway);
+        return $gateway;
+
+    }
+
+    /**
+     * factory method for venue groups gateway
+     * @return TheTwelve\Foursquare\VenueGroupsGateway
+     */
+    public function getVenueGroupsGateway()
+    {
+
+        $gateway = new VenueGroupsGateway($this->client);
+        $this->injectGatewayDependencies($gateway);
         return $gateway;
 
     }
@@ -124,6 +147,21 @@ class ApiGatewayFactory
         }
 
         return $this->requestUri;
+
+    }
+
+    /**
+     * inject the minimum required dependencies
+     */
+    protected function injectGatewayDependencies(EndpointGateway $gateway)
+    {
+
+        if (!$this->hasValidToken()) {
+            throw new \RuntimeException('No valid oauth token was found');
+        }
+
+        $gateway->setRequestUri($this->getRequestUri())
+                ->setToken($this->token);
 
     }
 
