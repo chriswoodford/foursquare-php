@@ -40,6 +40,4 @@ class VenuesGateway extends EndpointGateway
 
     }
 
-
-
 }
