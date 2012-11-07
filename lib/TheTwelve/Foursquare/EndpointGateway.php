@@ -90,7 +90,7 @@ abstract class EndpointGateway
                 && count($response->meta->notifications)
             ) {
 
-                //TODO handle notifications. loggging
+                //TODO handle notifications
 
             }
 

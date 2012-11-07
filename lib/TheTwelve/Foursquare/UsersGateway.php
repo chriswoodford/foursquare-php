@@ -54,7 +54,9 @@ class UsersGateway extends EndpointGateway
     {
 
         $resource = '/users/leaderboard';
+        $response = $this->makeApiRequest($resource);
 
+        return $response->leaderboard->items;
     }
 
     /**
@@ -67,6 +69,9 @@ class UsersGateway extends EndpointGateway
     {
 
         $resource = '/users/requests';
+        $response = $this->makeApiRequest($resource);
+
+        return $response->requests;
 
     }
 
@@ -78,6 +83,10 @@ class UsersGateway extends EndpointGateway
     public function search(array $options = array())
     {
 
+        $resource = '/users/search';
+        $response = $this->makeApiRequest($resource);
+
+        return $response->results;
 
     }
 
@@ -91,7 +100,7 @@ class UsersGateway extends EndpointGateway
         $uri = $this->buildUserResourceUri('badges');
         $response = $this->makeApiRequest($uri);
 
-        return $response->badges;
+        return $response->sets->badges;
 
     }
 
@@ -152,7 +161,7 @@ class UsersGateway extends EndpointGateway
         $uri = $this->buildUserResourceUri('mayorships');
         $response = $this->makeApiRequest($uri);
 
-        return $response->mayorships;
+        return $response->mayorships->items;
 
     }
 
@@ -167,7 +176,7 @@ class UsersGateway extends EndpointGateway
         $uri = $this->buildUserResourceUri('photos');
         $response = $this->makeApiRequest($uri);
 
-        return $response->photos;
+        return $response->photos->items;
 
     }
 
@@ -183,18 +192,83 @@ class UsersGateway extends EndpointGateway
         $uri = $this->buildUserResourceUri('venuehistory');
         $response = $this->makeApiRequest($uri);
 
-        return $response->venues;
+        return $response->venues->items;
+
+    }
+
+    /**
+     * Approves a pending friend request from another user.
+     * @param string $friendId
+     * @return stdClass
+     */
+    public function approve($friendId)
+    {
+
+        $uri = $this->buildUserResourceUri('approve', $friendId);
+        $response = $this->makeApiRequest($uri);
+
+        return $response->user;
+
+    }
+
+    /**
+     * Denies a pending friend request from another user.
+     * @param string $friendId
+     * @return stdClass
+     */
+    public function deny($friendId)
+    {
+
+        $uri = $this->buildUserResourceUri('deny', $friendId);
+        $response = $this->makeApiRequest($uri);
+
+        return $response->user;
+
+    }
+
+    /**
+     * Sends a friend request to another user. If the other user is a page
+     * then the requesting user will automatically start following the page.
+     * @param string $friendId
+     * @return stdClass
+     */
+    public function request($friendId)
+    {
+
+        $uri = $this->buildUserResourceUri('request', $friendId);
+        $response = $this->makeApiRequest($uri);
+
+        return $response->user;
+
+    }
+
+    /**
+     * Cancels any relationship between the acting user and the specified user
+     * Removes a friend, unfollows a celebrity, or cancels a pending friend
+     * request.
+     * @param string $friendId
+     * @return stdClass
+     */
+    public function unfriend($friendId)
+    {
+
+        $uri = $this->buildUserResourceUri('unfriend', $friendId);
+        $response = $this->makeApiRequest($uri);
+
+        return $response->user;
 
     }
 
     /**
      * build the resource URI
      * @param string $resource
+     * @param string|null $userId
      * @return string
      */
-    protected function buildUserResourceUri($resource)
+    protected function buildUserResourceUri($resource, $userId = null)
     {
 
+        $userId = is_null($userId) ? $this->userId : $userId;
         return '/users/' . $this->userId . '/' . $resource;
 
     }
