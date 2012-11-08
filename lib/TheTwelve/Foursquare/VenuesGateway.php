@@ -40,4 +40,114 @@ class VenuesGateway extends EndpointGateway
 
     }
 
+    public function explore()
+    {}
+
+    /**
+     * Get a list of venues the current user manages.
+     * @return array
+     */
+    public function managed()
+    {
+
+        $resource = '/venues/managed';
+        $response = $this->makeApiRequest($resource);
+
+        return $response->venues;
+
+    }
+
+    public function search()
+    {}
+
+    public function suggestCompletion()
+    {}
+
+    public function trending()
+    {}
+
+    /**
+     * Allows you to access information about the current events at a place.
+     * @param string $venueId
+     * @return array
+     */
+    public function events($venueId)
+    {
+
+        $resource = '/venues/' . $venueId . '/events';
+        $response = $this->makeApiRequest($resource);
+
+        return $response->events->items;
+
+    }
+
+    public function hereNow()
+    {}
+
+    /**
+     * Returns hours for a venue.
+     * @param string $venueId
+     * @return array
+     */
+    public function hours($venueId)
+    {
+
+        $resource = '/venues/' . $venueId . '/hours';
+        $response = $this->makeApiRequest($resource);
+
+        return $response->hours;
+
+    }
+
+    /**
+     * Returns friends and a total count of users who have liked this venue.
+     * @param string $venueId
+     * @return array
+     */
+    public function likes($venueId)
+    {
+
+        $resource = '/venues/' . $venueId . '/likes';
+        $response = $this->makeApiRequest($resource);
+
+        return $response->likes;
+
+    }
+
+    public function links()
+    {}
+
+    public function lists()
+    {}
+
+    public function menu()
+    {}
+
+    public function photos()
+    {}
+
+    public function similar()
+    {}
+
+    public function stats()
+    {}
+
+    public function tips()
+    {}
+
+    public function edit()
+    {}
+
+    public function flag()
+    {}
+
+    public function like()
+    {}
+
+    public function markToDo()
+    {}
+
+    public function proposeEdit()
+    {}
+
 }
