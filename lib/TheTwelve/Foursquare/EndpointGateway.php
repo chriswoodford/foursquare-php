@@ -5,7 +5,7 @@ namespace TheTwelve\Foursquare;
 abstract class EndpointGateway
 {
 
-    /** @var TheTwelve\Foursquare\HttpClient */
+    /** @var \TheTwelve\Foursquare\HttpClient */
     protected $client;
 
     /** @var string */
@@ -16,7 +16,7 @@ abstract class EndpointGateway
 
     /**
      * initialize the gateway
-     * @param TheTwelve\Foursquare\HttpClient;
+     * @param \TheTwelve\Foursquare\HttpClient $client;
      */
     public function __construct(HttpClient $client)
     {
@@ -27,8 +27,8 @@ abstract class EndpointGateway
 
     /**
      * set the request uri
-     * @param string $uri
-     * @return TheTwelve\Foursquare\EndpointGateway
+     * @param string $requestUri
+     * @return \TheTwelve\Foursquare\EndpointGateway
      */
     public function setRequestUri($requestUri)
     {
@@ -41,7 +41,7 @@ abstract class EndpointGateway
     /**
      * set the auth token
      * @param string $token
-     * @return TheTwelve\Foursquare\EndpointGateway
+     * @return \TheTwelve\Foursquare\EndpointGateway
      */
     public function setToken($token)
     {
@@ -53,7 +53,7 @@ abstract class EndpointGateway
 
     /**
      * assert that there is an active user
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
     protected function assertHasActiveUser()
     {
@@ -80,7 +80,7 @@ abstract class EndpointGateway
      * @param string $resource
      * @param array $params
      * @param string $method
-     * @return stdClass
+     * @return \stdClass
      */
     protected function makeApiRequest($resource, array $params = array(), $method = 'GET')
     {
@@ -91,11 +91,9 @@ abstract class EndpointGateway
         $params['v'] = date('Ymd');
 
         switch ($method) {
-
             case 'GET':
                 $response = json_decode($this->client->get($uri, $params));
                 break;
-
             default:
                 //TODO throw not implemented exception
 
@@ -131,7 +129,7 @@ abstract class EndpointGateway
      * @param string $resource
      * @param array $params
      * @param string $method
-     * @return stdClass
+     * @return \stdClass
      */
     protected function makeAuthenticatedApiRequest($resource, array $params = array(), $method = 'GET')
     {
