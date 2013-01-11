@@ -45,16 +45,17 @@ foursquare client into your project.
       $auth = $factory->getAuthenticationGateway(
           'YOUR_CLIENT_ID',
           'YOUR_CLIENT_SECRET',
-          'YOUR_REDIRECT_URL',
           'https://foursquare.com/oauth2/authorize',
-          'https://foursquare.com/oauth2/access_token'
+          'https://foursquare.com/oauth2/access_token',
+          'YOUR_REDIRECT_URL'
       );
 
       $auth->initiateLogin();
 
 ### Foursquare redirects the user back to you after a successful login
 
-      $code = $_GET['code'];
+      $code = $_GET['code']; 
+      // you should do some input sanitization to $code here, just in case 
       $token = $authGateway->authenticateUser($code);
 
 ### Update the API Gateway Factory with your OAuth token
