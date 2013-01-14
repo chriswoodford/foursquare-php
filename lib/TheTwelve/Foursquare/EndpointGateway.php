@@ -16,7 +16,7 @@ abstract class EndpointGateway
 
     /**
      * initialize the gateway
-     * @param \TheTwelve\Foursquare\HttpClient $client;
+     * @param \TheTwelve\Foursquare\HttpClient $client
      */
     public function __construct(HttpClient $client)
     {

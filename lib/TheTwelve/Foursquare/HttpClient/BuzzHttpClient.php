@@ -7,12 +7,12 @@ use Buzz\Browser;
 class BuzzHttpClient extends HttpClientAdapter
 {
 
-    /** @var Buzz\Browser */
+    /** @var \Buzz\Browser */
     protected $client;
 
     /**
      * initialize the buzz http client
-     * @param Buzz\Browser $client
+     * @param \Buzz\Browser $client
      */
     public function __construct(Browser $client)
     {
@@ -23,7 +23,7 @@ class BuzzHttpClient extends HttpClientAdapter
 
     /**
      * (non-PHPdoc)
-     * @see TheTwelve\Foursquare.HttpClient::get()
+     * @see \TheTwelve\Foursquare.HttpClient::get()
      */
     public function get($uri, array $params = array())
     {
@@ -35,7 +35,7 @@ class BuzzHttpClient extends HttpClientAdapter
 
     /**
      * (non-PHPdoc)
-     * @see TheTwelve\Foursquare.HttpClient::redirect()
+     * @see \TheTwelve\Foursquare.HttpClient::redirect()
      */
     public function redirect($uri)
     {

@@ -9,7 +9,7 @@ class SymfonyHttpClient extends HttpClientAdapter
 
     /**
      * (non-PHPdoc)
-     * @see TheTwelve\Foursquare.HttpClient::get()
+     * @see \TheTwelve\Foursquare.HttpClient::get()
      */
     public function get($uri, array $params = array())
     {
@@ -33,7 +33,7 @@ class SymfonyHttpClient extends HttpClientAdapter
 
     /**
      * (non-PHPdoc)
-     * @see TheTwelve\Foursquare.HttpClient::redirect()
+     * @see \TheTwelve\Foursquare.HttpClient::redirect()
      */
     public function redirect($uri)
     {

@@ -22,7 +22,7 @@ class ApiGatewayFactory
 
     /**
      * initialize the gateway
-     * @param $client \TheTwelve\Foursquare\HttpClient;
+     * @param \TheTwelve\Foursquare\HttpClient $client
      */
     public function __construct(HttpClient $client)
     {
