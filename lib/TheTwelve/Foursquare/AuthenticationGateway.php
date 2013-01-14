@@ -24,7 +24,7 @@ class AuthenticationGateway extends EndpointGateway
      * set authentication params
      * @param string $id
      * @param string $secret
-     * @return TheTwelve\Foursquare\AuthenticationGateway
+     * @return \TheTwelve\Foursquare\AuthenticationGateway
      */
     public function setAuthorizationParams($id, $secret)
     {
@@ -38,7 +38,7 @@ class AuthenticationGateway extends EndpointGateway
     /**
      * set the authentication uri
      * @param string $uri
-     * @return TheTwelve\Foursquare\AuthenticationGateway
+     * @return \TheTwelve\Foursquare\AuthenticationGateway
      */
     public function setAuthorizeUri($uri)
     {
@@ -51,7 +51,7 @@ class AuthenticationGateway extends EndpointGateway
     /**
      * set the access token uri
      * @param string $uri
-     * @return TheTwelve\Foursquare\AuthenticationGateway
+     * @return \TheTwelve\Foursquare\AuthenticationGateway
      */
     public function setAccessTokenUri($uri)
     {
@@ -64,7 +64,7 @@ class AuthenticationGateway extends EndpointGateway
     /**
      * set the redirect uri
      * @param string $uri
-     * @return TheTwelve\Foursquare\AuthenticationGateway
+     * @return \TheTwelve\Foursquare\AuthenticationGateway
      */
     public function setRedirectUri($uri)
     {
@@ -77,6 +77,7 @@ class AuthenticationGateway extends EndpointGateway
     /**
      * initiate the login process
      * @see https://developer.foursquare.com/overview/auth.html
+     * @throws \RuntimeException
      * @return mixed
      */
     public function initiateLogin()
@@ -103,6 +104,8 @@ class AuthenticationGateway extends EndpointGateway
      * authenticate the user with the response code
      * @see https://developer.foursquare.com/overview/auth.html
      * @param string $code
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
      * @return string
      */
     public function authenticateUser($code)

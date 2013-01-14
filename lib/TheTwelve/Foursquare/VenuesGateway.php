@@ -8,7 +8,7 @@ class VenuesGateway extends EndpointGateway
     /**
      * Enter description here ...
      * @param string $venueId
-     * @return stdClass
+     * @return \stdClass
      */
     public function getVenue($venueId)
     {
@@ -21,7 +21,9 @@ class VenuesGateway extends EndpointGateway
     }
 
     public function add()
-    {}
+    {
+
+    }
 
     /**
      * Returns a hierarchical list of categories applied to venues.
