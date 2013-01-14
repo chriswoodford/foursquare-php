@@ -5,7 +5,7 @@ namespace TheTwelve\Foursquare;
 class ApiGatewayFactory
 {
 
-    /** @var TheTwelve\Foursquare\HttpClient */
+    /** @var \TheTwelve\Foursquare\HttpClient */
     protected $client;
 
     /** @var string */
@@ -22,7 +22,7 @@ class ApiGatewayFactory
 
     /**
      * initialize the gateway
-     * @param TheTwelve\Foursquare\HttpClient;
+     * @param $client \TheTwelve\Foursquare\HttpClient;
      */
     public function __construct(HttpClient $client)
     {
@@ -34,7 +34,7 @@ class ApiGatewayFactory
     /**
      * tell the factory to use the supplied version
      * @param integer $version
-     * @return TheTwelve\Foursquare\ApiGatewayFactory
+     * @return \TheTwelve\Foursquare\ApiGatewayFactory
      */
     public function useVersion($version)
     {
@@ -47,7 +47,7 @@ class ApiGatewayFactory
     /**
      * set the api endpoint uri
      * @param string $uri
-     * @return TheTwelve\Foursquare\ApiGatewayFactory
+     * @return \TheTwelve\Foursquare\ApiGatewayFactory
      */
     public function setEndpointUri($uri)
     {
@@ -59,8 +59,8 @@ class ApiGatewayFactory
 
     /**
      * set the oauth token
-     * @param string $uri
-     * @return TheTwelve\Foursquare\ApiGatewayFactory
+     * @param string $token
+     * @return  \TheTwelve\Foursquare\ApiGatewayFactory
      */
     public function setToken($token)
     {
@@ -77,7 +77,7 @@ class ApiGatewayFactory
      * @param string $authorizeUri
      * @param string $accessTokenUri
      * @param string $redirectUri
-     * @return TheTwelve\Foursquare\AuthenticationGateway
+     * @return \TheTwelve\Foursquare\AuthenticationGateway
      */
     public function getAuthenticationGateway(
         $id, $secret, $authorizeUri, $accessTokenUri, $redirectUri
@@ -96,7 +96,7 @@ class ApiGatewayFactory
     /**
      * factory method for users gateway
      * @param string|null $userId
-     * @return TheTwelve\Foursquare\UsersGateway
+     * @return \TheTwelve\Foursquare\UsersGateway
      */
     public function getUsersGateway($userId = null)
     {
@@ -114,7 +114,7 @@ class ApiGatewayFactory
 
     /**
      * factory method for venues gateway
-     * @return TheTwelve\Foursquare\VenuesGateway
+     * @return \TheTwelve\Foursquare\VenuesGateway
      */
     public function getVenuesGateway()
     {
@@ -127,7 +127,7 @@ class ApiGatewayFactory
 
     /**
      * factory method for venue groups gateway
-     * @return TheTwelve\Foursquare\VenueGroupsGateway
+     * @return \TheTwelve\Foursquare\VenueGroupsGateway
      */
     public function getVenueGroupsGateway()
     {

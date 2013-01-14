@@ -10,7 +10,7 @@ class UsersGateway extends EndpointGateway
 
     /**
      * initialize the gateway
-     * @param TheTwelve\Foursquare\HttpClient $client
+     * @param \TheTwelve\Foursquare\HttpClient $client
      */
     public function __construct(HttpClient $client)
     {
@@ -34,7 +34,7 @@ class UsersGateway extends EndpointGateway
     /**
      * get a user
      * @see https://developer.foursquare.com/docs/users/users
-     * @return stdClass
+     * @return \stdClass
      */
     public function getUser()
     {
@@ -152,7 +152,6 @@ class UsersGateway extends EndpointGateway
     /**
      * Returns a user's mayorships.
      * @see https://developer.foursquare.com/docs/users/mayorships
-     * @param array $options
      */
     public function getMayorships()
     {
@@ -198,7 +197,7 @@ class UsersGateway extends EndpointGateway
     /**
      * Approves a pending friend request from another user.
      * @param string $friendId
-     * @return stdClass
+     * @return \stdClass
      */
     public function approve($friendId)
     {
@@ -213,7 +212,7 @@ class UsersGateway extends EndpointGateway
     /**
      * Denies a pending friend request from another user.
      * @param string $friendId
-     * @return stdClass
+     * @return \stdClass
      */
     public function deny($friendId)
     {
@@ -229,7 +228,7 @@ class UsersGateway extends EndpointGateway
      * Sends a friend request to another user. If the other user is a page
      * then the requesting user will automatically start following the page.
      * @param string $friendId
-     * @return stdClass
+     * @return \stdClass
      */
     public function request($friendId)
     {
@@ -246,7 +245,7 @@ class UsersGateway extends EndpointGateway
      * Removes a friend, unfollows a celebrity, or cancels a pending friend
      * request.
      * @param string $friendId
-     * @return stdClass
+     * @return \stdClass
      */
     public function unfriend($friendId)
     {
@@ -268,7 +267,7 @@ class UsersGateway extends EndpointGateway
     {
 
         $userId = is_null($userId) ? $this->userId : $userId;
-        return '/users/' . $this->userId . '/' . $resource;
+        return '/users/' . $userId . '/' . $resource;
 
     }
 
