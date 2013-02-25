@@ -21,21 +21,6 @@ class AuthenticationGateway extends EndpointGateway
     protected $redirectUri;
 
     /**
-     * set authentication params
-     * @param string $id
-     * @param string $secret
-     * @return \TheTwelve\Foursquare\AuthenticationGateway
-     */
-    public function setAuthorizationParams($id, $secret)
-    {
-
-        $this->id = $id;
-        $this->secret = $secret;
-        return $this;
-
-    }
-
-    /**
      * set the authentication uri
      * @param string $uri
      * @return \TheTwelve\Foursquare\AuthenticationGateway
@@ -96,7 +81,7 @@ class AuthenticationGateway extends EndpointGateway
         );
 
         $uri = $this->authorizeUri . '?' . http_build_query($uriParams);
-        return $this->client->redirect($uri);
+        return $this->httpClient->redirect($uri);
 
     }
 
@@ -121,15 +106,14 @@ class AuthenticationGateway extends EndpointGateway
             throw new \InvalidArgumentException('Foursquare code is invalid');
         }
 
-        $uriParams = array(
+        $response = json_decode($this->httpClient->get($this->accessTokenUri, array(
             'client_id' => $this->id,
             'client_secret' => $this->secret,
             'grant_type' => 'authorization_code',
             'redirect_uri' => $this->redirectUri,
             'code' => $code,
-        );
+        )));
 
-        $response = json_decode($this->client->get($this->accessTokenUri, $uriParams));
         $this->token = isset($response->access_token)
             ? $response->access_token : null;
 
@@ -143,9 +127,7 @@ class AuthenticationGateway extends EndpointGateway
      */
     protected function canInitiateLogin()
     {
-
         return $this->id && $this->redirectUri && $this->authorizeUri;
-
     }
 
     /**
@@ -154,10 +136,8 @@ class AuthenticationGateway extends EndpointGateway
      */
     protected function canAuthenticateUser()
     {
-
         return $this->id && $this->secret
             && $this->redirectUri && $this->accessTokenUri;
-
     }
 
     /**
@@ -167,9 +147,7 @@ class AuthenticationGateway extends EndpointGateway
      */
     protected function codeIsValid($code)
     {
-
         return !is_null($code);
-
     }
 
 }

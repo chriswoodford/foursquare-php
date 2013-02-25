@@ -4,20 +4,17 @@ namespace TheTwelve\Foursquare;
 
 class VenuesGateway extends EndpointGateway
 {
-
     /**
      * Enter description here ...
      * @param string $venueId
-     * @return \stdClass
+     * @return object
      */
     public function getVenue($venueId)
     {
-
         $resource = '/venues/' . $venueId;
         $response = $this->makeApiRequest($resource);
 
         return $response->venue;
-
     }
 
     public function add()
@@ -34,12 +31,10 @@ class VenuesGateway extends EndpointGateway
      */
     public function categories()
     {
-
         $resource = '/venues/categories';
         $response = $this->makeApiRequest($resource);
 
         return $response->categories;
-
     }
 
     public function explore()
@@ -51,16 +46,25 @@ class VenuesGateway extends EndpointGateway
      */
     public function managed()
     {
-
         $resource = '/venues/managed';
         $response = $this->makeApiRequest($resource);
 
         return $response->venues;
-
     }
+    
+    /**
+     * Returns a list of venues near the current location, optionally matching a search term.
+     * @see https://developer.foursquare.com/docs/venues/search
+     * @param array $params
+     * @return array
+     */
+    public function search(array $params = array())
+    {
+        $resource = '/venues/search';
+        $response = $this->makeApiRequest($resource, $params);
 
-    public function search()
-    {}
+        return $response->venues;
+    }
 
     public function suggestCompletion()
     {}

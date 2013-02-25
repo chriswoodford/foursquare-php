@@ -17,7 +17,7 @@ class TheTwelve_Foursquare_ApiGatewayFactoryTest
 
         $factory = $this->createFactory($client, $token);
 
-        $this->assertAttributeEquals($client, 'client', $factory);
+        $this->assertAttributeEquals($client, 'httpClient', $factory);
         $this->assertAttributeEquals($version, 'version', $factory);
         $this->assertAttributeEquals($_GET['endpointUri'], 'endpointUri', $factory);
         $this->assertAttributeEquals($token, 'token', $factory);
@@ -37,9 +37,10 @@ class TheTwelve_Foursquare_ApiGatewayFactoryTest
 
         $factory = $this->createFactory($client);
 
+        $factory->setClientCredentials($_GET['clientId'], $_GET['clientSecret']);
+
         $gateway = $factory->getAuthenticationGateway(
-            $_GET['clientId'],
-            $_GET['clientSecret'],
+            
             $_GET['authorizeUri'],
             $_GET['accessTokenUri'],
             $_GET['redirectUri']
@@ -54,7 +55,7 @@ class TheTwelve_Foursquare_ApiGatewayFactoryTest
         $this->assertAttributeEquals($_GET['accessTokenUri'], 'accessTokenUri', $gateway);
         $this->assertAttributeEquals($_GET['redirectUri'], 'redirectUri', $gateway);
 
-        $this->assertAttributeEquals($client, 'client', $gateway);
+        $this->assertAttributeEquals($client, 'httpClient', $gateway);
         $this->assertAttributeEquals(null, 'token', $gateway);
         $this->assertAttributeEquals(null, 'requestUri', $gateway);
 

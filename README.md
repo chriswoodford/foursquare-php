@@ -36,14 +36,17 @@ foursquare client into your project.
 ### Instantiate the API Gateway Factory
 
       $factory = new \TheTwelve\Foursquare\ApiGatewayFactory($client);
+      
+      // Required for most requests
+      $factory->setClientCredentials('CLIENT_ID', 'CLIENT_SECRET');
+
+      // Optional
       $factory->setEndpointUri('https://api.foursquare.com');
       $factory->useVersion(2);
 
 ### Begin authentication with Foursquare
 
       $auth = $factory->getAuthenticationGateway(
-          'YOUR_CLIENT_ID',
-          'YOUR_CLIENT_SECRET',
           'https://foursquare.com/oauth2/authorize',
           'https://foursquare.com/oauth2/access_token',
           'YOUR_REDIRECT_URL'
@@ -53,8 +56,9 @@ foursquare client into your project.
 
 ### Foursquare redirects the user back to you after a successful login
 
-      $code = $_GET['code']; 
-      // you should do some input sanitization to $code here, just in case 
+      $code = $_GET['code'];
+
+      // You should do some input sanitization to $code here, just in case 
       $token = $authGateway->authenticateUser($code);
 
 ### Update the API Gateway Factory with your OAuth token
@@ -68,3 +72,14 @@ foursquare client into your project.
 ### Get data from Foursquare
 
       $user = $gateway->getUser();
+
+### Search venues
+
+      $gateway = $factory->getVenuesGateway();
+
+      $venues = $gateway->search(array(
+        'll' => '40.727198,-73.992289',
+        'query' => 'Starbucks',
+        'radius' => 1000,
+        'intent' => 'checkin'
+      ));
