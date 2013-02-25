@@ -6,13 +6,13 @@ class ApiGatewayFactory
 {
 
     /** @var \TheTwelve\Foursquare\HttpClient */
-    protected $client;
+    protected $httpClient;
 
     /** @var string */
-    protected $version;
+    protected $version = 'v2';
 
     /** @var string */
-    protected $endpointUri;
+    protected $endpointUri = 'https://api.foursquare.com';
 
     /** @var string */
     protected $token;
@@ -22,12 +22,12 @@ class ApiGatewayFactory
 
     /**
      * initialize the gateway
-     * @param \TheTwelve\Foursquare\HttpClient $client
+     * @param \TheTwelve\Foursquare\HttpClient $httpClient
      */
-    public function __construct(HttpClient $client)
+    public function __construct(HttpClient $httpClient)
     {
 
-        $this->client = $client;
+        $this->httpClient = $httpClient;
 
     }
 
@@ -40,6 +40,21 @@ class ApiGatewayFactory
     {
 
         $this->version = 'v' . $version;
+        return $this;
+
+    }
+
+    /**
+     * set the api endpoint uri
+     * @param string $id
+     * @param string $secret
+     * @return \TheTwelve\Foursquare\ApiGatewayFactory
+     */
+    public function setClientCredentials($id, $secret)
+    {
+
+        $this->clientId = $id;
+        $this->clientSecret = $secret;
         return $this;
 
     }
@@ -72,20 +87,17 @@ class ApiGatewayFactory
 
     /**
      * factory method for authentication gateway
-     * @param string $id
-     * @param string $secret
      * @param string $authorizeUri
      * @param string $accessTokenUri
      * @param string $redirectUri
      * @return \TheTwelve\Foursquare\AuthenticationGateway
      */
     public function getAuthenticationGateway(
-        $id, $secret, $authorizeUri, $accessTokenUri, $redirectUri
+        $authorizeUri, $accessTokenUri, $redirectUri
     ) {
 
-        $gateway = new AuthenticationGateway($this->client, $this);
-        $gateway->setAuthorizationParams($id, $secret)
-                ->setAuthorizeUri($authorizeUri)
+        $gateway = new AuthenticationGateway($this->httpClient);
+        $gateway->setAuthorizeUri($authorizeUri)
                 ->setAccessTokenUri($accessTokenUri)
                 ->setRedirectUri($redirectUri);
 
@@ -101,7 +113,7 @@ class ApiGatewayFactory
     public function getUsersGateway($userId = null)
     {
 
-        $gateway = new UsersGateway($this->client);
+        $gateway = new UsersGateway($this->httpClient);
 
         if (!is_null($userId)) {
             $gateway->setUserId($userId);
@@ -114,12 +126,13 @@ class ApiGatewayFactory
 
     /**
      * factory method for venues gateway
+     * @param string $id
+     * @param string $secret
      * @return \TheTwelve\Foursquare\VenuesGateway
      */
     public function getVenuesGateway()
     {
-
-        $gateway = new VenuesGateway($this->client);
+        $gateway = new VenuesGateway($this->httpClient);
         $this->injectGatewayDependencies($gateway);
         return $gateway;
 
@@ -132,7 +145,7 @@ class ApiGatewayFactory
     public function getVenueGroupsGateway()
     {
 
-        $gateway = new VenueGroupsGateway($this->client);
+        $gateway = new VenueGroupsGateway($this->httpClient);
         $this->injectGatewayDependencies($gateway);
         return $gateway;
 
@@ -160,7 +173,8 @@ class ApiGatewayFactory
     {
 
         $gateway->setRequestUri($this->getRequestUri())
-                ->setToken($this->token);
+                ->setToken($this->token)
+                ->setClientCredentials($this->clientId, $this->clientSecret);
 
     }
 
