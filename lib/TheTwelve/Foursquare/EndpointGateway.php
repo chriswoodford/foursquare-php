@@ -6,7 +6,7 @@ abstract class EndpointGateway
 {
 
     /** @var \TheTwelve\Foursquare\HttpClient */
-    protected $client;
+    protected $httpClient;
 
     /** @var string */
     protected $token;
@@ -14,15 +14,19 @@ abstract class EndpointGateway
     /** @var string */
     protected $requestUri;
 
+    /** @var string */
+    protected $clientId;
+
+    /** @var string */
+    protected $clientSecret;
+
     /**
      * initialize the gateway
      * @param \TheTwelve\Foursquare\HttpClient $client
      */
-    public function __construct(HttpClient $client)
+    public function __construct(HttpClient $httpClient)
     {
-
-        $this->client = $client;
-
+        $this->httpClient = $httpClient;
     }
 
     /**
@@ -32,10 +36,21 @@ abstract class EndpointGateway
      */
     public function setRequestUri($requestUri)
     {
-
         $this->requestUri = rtrim($requestUri, '/');
         return $this;
+    }
 
+    /**
+     * set the api endpoint uri
+     * @param string $id
+     * @param string $secret
+     * @return \TheTwelve\Foursquare\EndpointGateway
+     */
+    public function setClientCredentials($id, $secret)
+    {
+        $this->clientId = $id;
+        $this->clientSecret = $secret;
+        return $this;
     }
 
     /**
@@ -45,10 +60,8 @@ abstract class EndpointGateway
      */
     public function setToken($token)
     {
-
         $this->token = $token;
         return $this;
-
     }
 
     /**
@@ -57,11 +70,9 @@ abstract class EndpointGateway
      */
     protected function assertHasActiveUser()
     {
-
         if (!$this->hasValidToken()) {
             throw new \RuntimeException('No valid oauth token found.');
         }
-
     }
 
     /**
@@ -70,9 +81,7 @@ abstract class EndpointGateway
      */
     protected function hasValidToken()
     {
-
-        return $this->token ? true : false;
-
+        return (bool) $this->token;
     }
 
     /**
@@ -84,15 +93,21 @@ abstract class EndpointGateway
      */
     protected function makeApiRequest($resource, array $params = array(), $method = 'GET')
     {
-
         $uri = $this->requestUri . '/' . ltrim($resource, '/');
+
+        if ($this->hasValidToken()) {
+            $params['oauth_token'] = $this->token;
+        } else {
+            $params['client_id'] = $this->clientId;
+            $params['client_secret'] = $this->clientSecret;
+        }
 
         // apply a dated "version"
         $params['v'] = date('Ymd');
 
         switch ($method) {
             case 'GET':
-                $response = json_decode($this->client->get($uri, $params));
+                $response = json_decode($this->httpClient->get($uri, $params));
                 break;
             default:
                 //TODO throw not implemented exception
@@ -121,25 +136,6 @@ abstract class EndpointGateway
         }
 
         return $response->response;
-
-    }
-
-    /**
-     * make an authenticated request to the api
-     * @param string $resource
-     * @param array $params
-     * @param string $method
-     * @return \stdClass
-     */
-    protected function makeAuthenticatedApiRequest($resource, array $params = array(), $method = 'GET')
-    {
-
-        $this->assertHasActiveUser();
-
-        $params['oauth_token'] = $this->token;
-
-        return $this->makeApiRequest($resource, $params, $method);
-
     }
 
 }
