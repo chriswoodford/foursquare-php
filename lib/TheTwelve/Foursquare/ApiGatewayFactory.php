@@ -20,6 +20,12 @@ class ApiGatewayFactory
     /** @var string */
     protected $requestUri;
 
+    /** @var string */
+    protected $clientId;
+
+    /** @var string */
+    protected $clientSecret;
+
     /**
      * initialize the gateway
      * @param \TheTwelve\Foursquare\HttpClient $httpClient
@@ -45,7 +51,7 @@ class ApiGatewayFactory
     }
 
     /**
-     * set the api endpoint uri
+     * set the client credentials
      * @param string $id
      * @param string $secret
      * @return \TheTwelve\Foursquare\ApiGatewayFactory
@@ -168,6 +174,7 @@ class ApiGatewayFactory
 
     /**
      * inject the minimum required dependencies
+     * @param \TheTwelve\FoursquareEndpointGateway $gateway
      */
     protected function injectGatewayDependencies(EndpointGateway $gateway)
     {
