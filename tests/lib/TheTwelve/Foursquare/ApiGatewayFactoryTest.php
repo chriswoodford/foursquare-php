@@ -40,7 +40,7 @@ class TheTwelve_Foursquare_ApiGatewayFactoryTest
         $factory->setClientCredentials($_GET['clientId'], $_GET['clientSecret']);
 
         $gateway = $factory->getAuthenticationGateway(
-            
+
             $_GET['authorizeUri'],
             $_GET['accessTokenUri'],
             $_GET['redirectUri']
@@ -49,8 +49,8 @@ class TheTwelve_Foursquare_ApiGatewayFactoryTest
         $this->assertTrue($gateway instanceof \TheTwelve\Foursquare\EndpointGateway);
         $this->assertTrue($gateway instanceof \TheTwelve\Foursquare\AuthenticationGateway);
 
-        $this->assertAttributeEquals($_GET['clientId'], 'id', $gateway);
-        $this->assertAttributeEquals($_GET['clientSecret'], 'secret', $gateway);
+        $this->assertAttributeEquals($_GET['clientId'], 'clientId', $gateway);
+        $this->assertAttributeEquals($_GET['clientSecret'], 'clientSecret', $gateway);
         $this->assertAttributeEquals($_GET['authorizeUri'], 'authorizeUri', $gateway);
         $this->assertAttributeEquals($_GET['accessTokenUri'], 'accessTokenUri', $gateway);
         $this->assertAttributeEquals($_GET['redirectUri'], 'redirectUri', $gateway);
@@ -78,7 +78,7 @@ class TheTwelve_Foursquare_ApiGatewayFactoryTest
         $this->assertTrue($gateway instanceof \TheTwelve\Foursquare\EndpointGateway);
         $this->assertTrue($gateway instanceof \TheTwelve\Foursquare\UsersGateway);
 
-        $this->assertAttributeEquals($client, 'client', $gateway);
+        $this->assertAttributeEquals($client, 'httpClient', $gateway);
         $this->assertAttributeEquals($token, 'token', $gateway);
         $this->assertAttributeEquals($_GET['endpointUri'] . '/v2', 'requestUri', $gateway);
 

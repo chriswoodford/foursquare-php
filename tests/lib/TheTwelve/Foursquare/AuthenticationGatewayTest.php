@@ -9,8 +9,8 @@ class TheTwelve_Foursquare_AuthenticationGatewayTest
 
         $gateway = $this->getAuthenticationGateway();
 
-        $this->assertAttributeEquals($_GET['clientId'], 'id', $gateway);
-        $this->assertAttributeEquals($_GET['clientSecret'], 'secret', $gateway);
+        $this->assertAttributeEquals($_GET['clientId'], 'clientId', $gateway);
+        $this->assertAttributeEquals($_GET['clientSecret'], 'clientSecret', $gateway);
         $this->assertAttributeEquals($_GET['authorizeUri'], 'authorizeUri', $gateway);
         $this->assertAttributeEquals($_GET['accessTokenUri'], 'accessTokenUri', $gateway);
         $this->assertAttributeEquals($_GET['redirectUri'], 'redirectUri', $gateway);
@@ -41,7 +41,7 @@ class TheTwelve_Foursquare_AuthenticationGatewayTest
         );
 
         $gateway = new \TheTwelve\Foursquare\AuthenticationGateway($client);
-        $gateway->setAuthorizationParams($_GET['clientId'], $_GET['clientSecret']);
+        $gateway->setClientCredentials($_GET['clientId'], $_GET['clientSecret']);
         $gateway->setAuthorizeUri($_GET['authorizeUri']);
         $gateway->setAccessTokenUri($_GET['accessTokenUri']);
         $gateway->setRedirectUri($_GET['redirectUri']);

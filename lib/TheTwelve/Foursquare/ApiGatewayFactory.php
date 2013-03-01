@@ -105,7 +105,8 @@ class ApiGatewayFactory
         $gateway = new AuthenticationGateway($this->httpClient);
         $gateway->setAuthorizeUri($authorizeUri)
                 ->setAccessTokenUri($accessTokenUri)
-                ->setRedirectUri($redirectUri);
+                ->setRedirectUri($redirectUri)
+                ->setClientCredentials($this->clientId, $this->clientSecret);
 
         return $gateway;
 
@@ -138,6 +139,7 @@ class ApiGatewayFactory
      */
     public function getVenuesGateway()
     {
+
         $gateway = new VenuesGateway($this->httpClient);
         $this->injectGatewayDependencies($gateway);
         return $gateway;
@@ -152,6 +154,20 @@ class ApiGatewayFactory
     {
 
         $gateway = new VenueGroupsGateway($this->httpClient);
+        $this->injectGatewayDependencies($gateway);
+        return $gateway;
+
+    }
+
+    /**
+     * factory method that returns a generic gateway, allowing requests
+     * to be made directly to the foursquare api
+     * @return \TheTwelve\Foursquare\EndpointGateway
+     */
+    public function getGenericGateway()
+    {
+
+        $gateway = new EndpointGateway($this->httpClient);
         $this->injectGatewayDependencies($gateway);
         return $gateway;
 

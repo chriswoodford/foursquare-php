@@ -2,7 +2,7 @@
 
 namespace TheTwelve\Foursquare;
 
-abstract class EndpointGateway
+class EndpointGateway
 {
 
     /** @var \TheTwelve\Foursquare\HttpClient */
@@ -65,34 +65,31 @@ abstract class EndpointGateway
     }
 
     /**
-     * assert that there is an active user
-     * @throws \RuntimeException
+     * make an authenticated request to the api
+     * @param string $resource
+     * @param array $params
+     * @param string $method
+     * @return stdClass
      */
-    protected function assertHasActiveUser()
+    public function makeAuthenticatedApiRequest($resource, array $params = array(), $method = 'GET')
     {
-        if (!$this->hasValidToken()) {
-            throw new \RuntimeException('No valid oauth token found.');
-        }
+
+        $this->assertHasActiveUser();
+        $params['oauth_token'] = $this->token;
+        return $this->makeApiRequest($resource, $params, $method);
+
     }
 
     /**
-     * checks if a valid token exists
-     * @return boolean
-     */
-    protected function hasValidToken()
-    {
-        return (bool) $this->token;
-    }
-
-    /**
-     * make a request to the api
+     * make a generic request to the api
      * @param string $resource
      * @param array $params
      * @param string $method
      * @return \stdClass
      */
-    protected function makeApiRequest($resource, array $params = array(), $method = 'GET')
+    public function makeApiRequest($resource, array $params = array(), $method = 'GET')
     {
+
         $uri = $this->requestUri . '/' . ltrim($resource, '/');
 
         if ($this->hasValidToken()) {
@@ -136,6 +133,27 @@ abstract class EndpointGateway
         }
 
         return $response->response;
+
+    }
+
+    /**
+     * assert that there is an active user
+     * @throws \RuntimeException
+     */
+    protected function assertHasActiveUser()
+    {
+        if (!$this->hasValidToken()) {
+            throw new \RuntimeException('No valid oauth token found.');
+        }
+    }
+
+    /**
+     * checks if a valid token exists
+     * @return boolean
+     */
+    protected function hasValidToken()
+    {
+        return (bool) $this->token;
     }
 
 }
