@@ -99,7 +99,7 @@ class UsersGateway extends EndpointGateway
         $uri = $this->buildUserResourceUri('badges');
         $response = $this->makeAuthenticatedApiRequest($uri);
 
-        return $response->sets->badges;
+        return $response->badges;
 
     }
 
