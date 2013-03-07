@@ -106,6 +106,42 @@ class ApiGatewayFactory
     }
 
     /**
+     * factory method for checkins gateway
+     * @param string|null $userId
+     * @return \TheTwelve\Foursquare\UsersGateway
+     */
+    public function getCheckinsGateway($userId = null)
+    {
+
+        $gateway = new CheckinsGateway($this->httpClient);
+
+        if (!is_null($userId)) {
+            $gateway->setUserId($userId);
+        }
+
+        $this->injectGatewayDependencies($gateway);
+        return $gateway;
+    }
+
+    /**
+     * factory method for photos gateway
+     * @param string|null $userId
+     * @return \TheTwelve\Foursquare\UsersGateway
+     */
+    public function getPhotosGateway($userId = null)
+    {
+
+        $gateway = new PhotosGateway($this->httpClient);
+
+        if (!is_null($userId)) {
+            $gateway->setUserId($userId);
+        }
+
+        $this->injectGatewayDependencies($gateway);
+        return $gateway;
+    }
+
+    /**
      * factory method for users gateway
      * @param string|null $userId
      * @return \TheTwelve\Foursquare\UsersGateway
