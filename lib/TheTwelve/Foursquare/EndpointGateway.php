@@ -106,9 +106,11 @@ class EndpointGateway
             case 'GET':
                 $response = json_decode($this->httpClient->get($uri, $params));
                 break;
+            case 'POST':
+                $response = json_decode($this->httpClient->post($uri, $params));
+                break;
             default:
-                //TODO throw not implemented exception
-
+                throw new \RuntimeException('Currently only HTTP methods "GET" and "POST" are supported.');
         }
 
         //TODO check headers for api request limit
