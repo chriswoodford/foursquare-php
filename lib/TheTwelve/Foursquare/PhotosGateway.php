@@ -4,6 +4,7 @@ namespace TheTwelve\Foursquare;
 
 class PhotosGateway extends EndpointGateway
 {
+
 	/**
      * Check a user to a photo, and maybe to a event too.
      * @param string $venueId
@@ -12,11 +13,11 @@ class PhotosGateway extends EndpointGateway
      */
     public function getPhoto($photoId)
     {
-        $resource = '/photos/' . $venueId;
 
+        $resource = '/photos/' . $photoId;
         $response = $this->makeApiRequest($resource);
-
         return $response->photo;
+
     }
 
 	/**
@@ -27,10 +28,11 @@ class PhotosGateway extends EndpointGateway
      */
     public function addPhoto($options)
     {
+
         $resource = '/photos/add';
-
         $response = $this->makeApiRequest($resource, $options, 'POST');
-
         return $response->photo;
+
     }
+
 }
