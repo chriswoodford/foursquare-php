@@ -1,6 +1,6 @@
 <?php
 
-class TheTwelve_Foursquare_UserGatewayTest
+class TheTwelve_Foursquare_UsersGatewayTest
     extends PHPUnit_Framework_TestCase
 {
 
