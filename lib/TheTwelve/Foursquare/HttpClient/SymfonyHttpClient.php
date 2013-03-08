@@ -36,7 +36,7 @@ class SymfonyHttpClient extends HttpClientAdapter
     }
 
     /**
-     *
+     * update the value for the verify host property
      * @param boolean $value
      */
     public function setVerifyHost($value)
