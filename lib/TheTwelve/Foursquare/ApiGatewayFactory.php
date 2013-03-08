@@ -121,13 +121,9 @@ class ApiGatewayFactory
     {
 
         $gateway = new CheckinsGateway($this->httpClient);
-
-        if (!is_null($userId)) {
-            $gateway->setUserId($userId);
-        }
-
-        $this->injectGatewayDependencies($gateway);
+        $this->injectGatewayDependencies($gateway, $userId);
         return $gateway;
+
     }
 
     /**
@@ -139,13 +135,9 @@ class ApiGatewayFactory
     {
 
         $gateway = new PhotosGateway($this->httpClient);
-
-        if (!is_null($userId)) {
-            $gateway->setUserId($userId);
-        }
-
-        $this->injectGatewayDependencies($gateway);
+        $this->injectGatewayDependencies($gateway, $userId);
         return $gateway;
+
     }
 
     /**
@@ -157,12 +149,7 @@ class ApiGatewayFactory
     {
 
         $gateway = new UsersGateway($this->httpClient);
-
-        if (!is_null($userId)) {
-            $gateway->setUserId($userId);
-        }
-
-        $this->injectGatewayDependencies($gateway);
+        $this->injectGatewayDependencies($gateway, $userId);
         return $gateway;
 
     }
@@ -228,8 +215,12 @@ class ApiGatewayFactory
      * inject the minimum required dependencies
      * @param \TheTwelve\FoursquareEndpointGateway $gateway
      */
-    protected function injectGatewayDependencies(EndpointGateway $gateway)
+    protected function injectGatewayDependencies(EndpointGateway $gateway, $userId = null)
     {
+
+        if (!is_null($userId)) {
+            $gateway->setUserId($userId);
+        }
 
         $gateway->setRequestUri($this->getRequestUri())
                 ->setToken($this->token)
