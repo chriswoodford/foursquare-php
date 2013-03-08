@@ -35,6 +35,15 @@ class BuzzHttpClient extends HttpClientAdapter
 
     /**
      * (non-PHPdoc)
+     * @see TheTwelve\Foursquare.HttpClient::post()
+     */
+    public function post($uri, array $params = array())
+    {
+
+    }
+
+    /**
+     * (non-PHPdoc)
      * @see \TheTwelve\Foursquare.HttpClient::redirect()
      */
     public function redirect($uri)
