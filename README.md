@@ -1,11 +1,9 @@
 # Foursquare API Client by TheTwelve Labs
-================================
 
 A(nother) PHP Foursquare API client  
 [https://developer.foursquare.com/docs/](https://developer.foursquare.com/docs/)
 
 ## Installation
---------------
 
 [Composer](http://getcomposer.org) is currently the only way to install the 
 foursquare client into your project.
@@ -27,7 +25,6 @@ foursquare client into your project.
       $ php composer.phar install
 
 ## Usage
----------
 
 ### Select your preferred HTTP Client
 
@@ -83,3 +80,7 @@ foursquare client into your project.
         'radius' => 1000,
         'intent' => 'checkin'
       ));
+
+## License
+
+This library is released under the (MIT License)[http://www.opensource.org/licenses/MIT].
