@@ -83,4 +83,4 @@ foursquare client into your project.
 
 ## License
 
-This library is released under the [http://www.opensource.org/licenses/MIT](MIT License).
+This library is released under the [MIT License](http://www.opensource.org/licenses/MIT).
