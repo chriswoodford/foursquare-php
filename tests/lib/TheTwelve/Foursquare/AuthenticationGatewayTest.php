@@ -40,7 +40,9 @@ class TheTwelve_Foursquare_AuthenticationGatewayTest
         	'TheTwelve\Foursquare\HttpClient'
         );
 
-        $gateway = new \TheTwelve\Foursquare\AuthenticationGateway($client);
+        $redirector = $this->getMockForAbstractClass('TheTwelve\Foursquare\Redirector');
+
+        $gateway = new \TheTwelve\Foursquare\AuthenticationGateway($client, $redirector);
         $gateway->setClientCredentials($_GET['clientId'], $_GET['clientSecret']);
         $gateway->setAuthorizeUri($_GET['authorizeUri']);
         $gateway->setAccessTokenUri($_GET['accessTokenUri']);

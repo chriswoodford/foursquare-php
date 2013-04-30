@@ -29,10 +29,13 @@ class TheTwelve_Foursquare_ApiGatewayFactoryTest
     {
 
         $client = $this->getHttpClient();
+        $redirector = $this->getMockForAbstractClass('TheTwelve\Foursquare\Redirector');
+
         $factory = $this->createFactory($client);
         $factory->setClientCredentials($_GET['clientId'], $_GET['clientSecret']);
 
         $gateway = $factory->getAuthenticationGateway(
+            $redirector,
             $_GET['authorizeUri'],
             $_GET['accessTokenUri'],
             $_GET['redirectUri']
