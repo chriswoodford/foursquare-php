@@ -6,12 +6,6 @@ class AuthenticationGateway extends EndpointGateway
 {
 
     /** @var string */
-    protected $id;
-
-    /** @var string */
-    protected $secret;
-
-    /** @var string */
     protected $authorizeUri;
 
     /** @var string */
@@ -142,8 +136,8 @@ class AuthenticationGateway extends EndpointGateway
         }
 
         $response = json_decode($this->httpClient->get($this->accessTokenUri, array(
-            'client_id' => $this->id,
-            'client_secret' => $this->secret,
+            'client_id' => $this->clientId,
+            'client_secret' => $this->clientSecret,
             'grant_type' => 'authorization_code',
             'redirect_uri' => $this->redirectUri,
             'code' => $code,
@@ -171,7 +165,7 @@ class AuthenticationGateway extends EndpointGateway
      */
     protected function canBuildAuthenticationUri()
     {
-        return $this->id && $this->redirectUri && $this->authorizeUri;
+        return $this->clientId && $this->redirectUri && $this->authorizeUri;
     }
 
     /**
@@ -180,7 +174,7 @@ class AuthenticationGateway extends EndpointGateway
      */
     protected function canAuthenticateUser()
     {
-        return $this->id && $this->secret
+        return $this->clientId && $this->clientSecret
             && $this->redirectUri && $this->accessTokenUri;
     }
 

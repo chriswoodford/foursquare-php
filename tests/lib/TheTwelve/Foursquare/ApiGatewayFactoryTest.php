@@ -86,7 +86,6 @@ class TheTwelve_Foursquare_ApiGatewayFactoryTest
         $this->assertTrue($gateway instanceof \TheTwelve\Foursquare\EndpointGateway);
         $this->assertTrue($gateway instanceof \TheTwelve\Foursquare\PhotosGateway);
 
-
     }
 
     public function testCheckinsGateway()

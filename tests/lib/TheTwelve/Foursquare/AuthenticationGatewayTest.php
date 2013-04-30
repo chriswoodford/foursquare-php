@@ -26,21 +26,55 @@ class TheTwelve_Foursquare_AuthenticationGatewayTest
 
     }
 
-    public function testAuthentication()
+    public function testCannotBuildAuthenticationUri()
     {
 
-        $gateway = $this->getAuthenticationGateway();
+        $client = $this->getHttpClient();
+        $redirector = $this->getRedirector();
+
+        $gateway = new \TheTwelve\Foursquare\AuthenticationGateway($client, $redirector);
+
+        $this->setExpectedException('RuntimeException');
+        $uri = $gateway->getAuthenticationUri();
 
     }
 
-    protected function getAuthenticationGateway()
+    public function testAuthentication()
     {
 
-        $client = $this->getMockForAbstractClass(
-        	'TheTwelve\Foursquare\HttpClient'
-        );
+        $code = 'QWERTYUIOP';
+        $token = "ASDFGHJKL";
+        $tokenJson = '{"access_token":"' . $token . '"}';
 
-        $redirector = $this->getMockForAbstractClass('TheTwelve\Foursquare\Redirector');
+        $client = $this->getHttpClient();
+        $client->expects($this->once())
+               ->method('get')
+               ->with($_GET['accessTokenUri'], array(
+                    'client_id' => $_GET['clientId'],
+                    'client_secret' => $_GET['clientSecret'],
+                    'grant_type' => 'authorization_code',
+                    'redirect_uri' => $_GET['redirectUri'],
+                    'code' => $code,
+                ))
+               ->will($this->returnValue($tokenJson));
+
+        $gateway = $this->getAuthenticationGateway($client);
+        $ret = $gateway->authenticateUser($code);
+
+        $this->assertEquals($token, $ret);
+
+    }
+
+    protected function getAuthenticationGateway($client = null, $redirector = null)
+    {
+
+        if (is_null($client)) {
+            $client = $this->getHttpClient();
+        }
+
+        if (is_null($redirector)) {
+            $redirector = $this->getRedirector();
+        }
 
         $gateway = new \TheTwelve\Foursquare\AuthenticationGateway($client, $redirector);
         $gateway->setClientCredentials($_GET['clientId'], $_GET['clientSecret']);
@@ -50,6 +84,16 @@ class TheTwelve_Foursquare_AuthenticationGatewayTest
 
         return $gateway;
 
+    }
+
+    protected function getHttpClient()
+    {
+        return $this->getMockForAbstractClass('TheTwelve\Foursquare\HttpClient');
+    }
+
+    protected function getRedirector()
+    {
+        return $this->getMockForAbstractClass('TheTwelve\Foursquare\Redirector');
     }
 
 }
