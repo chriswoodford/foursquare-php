@@ -74,14 +74,27 @@ class AuthenticationGateway extends EndpointGateway
             );
         }
 
+        $uri = $this->getAuthenticationUri();
+        return $this->httpClient->redirect($uri);
+
+    }
+
+    /**
+     * build the foursquare authentication uri that users are
+     * forwarded to for authentication
+     * @see https://developer.foursquare.com/overview/auth.html
+     * @return string
+     */
+    public function getAuthenticationUri()
+    {
+
         $uriParams = array(
             'client_id' => $this->id,
             'response_type' => 'code',
             'redirect_uri' => $this->redirectUri,
         );
 
-        $uri = $this->authorizeUri . '?' . http_build_query($uriParams);
-        return $this->httpClient->redirect($uri);
+        return $this->authorizeUri . '?' . http_build_query($uriParams);
 
     }
 
