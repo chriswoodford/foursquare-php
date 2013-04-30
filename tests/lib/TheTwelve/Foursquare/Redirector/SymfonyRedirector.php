@@ -7,7 +7,7 @@ class TheTwelve_Foursquare_HttpClient_SymfonyRedirectorTest
     public function testRedirect()
     {
 
-        $client = new \TheTwelve\Foursquare\HttpClient\SymfonyHttpClient();
+        $client = new \TheTwelve\Foursquare\Redirector\SymfonyRedirector();
         $result = $client->redirect('http://example.com');
 
         $this->assertTrue($result instanceof \Symfony\Component\HttpFoundation\RedirectResponse);

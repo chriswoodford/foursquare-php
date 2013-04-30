@@ -4,7 +4,7 @@ namespace TheTwelve\Foursquare\Redirector;
 
 use TheTwelve\Foursquare;
 
-class CurlRedirector implements Foursquare\Redirector
+class HeaderRedirector implements Foursquare\Redirector
 {
 
     /**
@@ -13,6 +13,8 @@ class CurlRedirector implements Foursquare\Redirector
      */
     public function redirect($uri)
     {
+
+        header('Location: ' . $uri);
 
     }
 
