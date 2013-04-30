@@ -12,7 +12,7 @@ foursquare client into your project.
 
       {
           "require": {
-              "thetwelvelabs/foursquare": "0.2.*@dev"
+              "thetwelvelabs/foursquare": "dev-master@dev"
           }
       }
 
