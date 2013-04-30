@@ -26,13 +26,13 @@ foursquare client into your project.
 
 ## Usage
 
-### Select your preferred HTTP Client
+### Select your preferred HTTP Client (CurlHttpClient is the default)
 
-      $client = new \TheTwelve\Foursquare\HttpClient\SymfonyHttpClient();
+      $client = new \TheTwelve\Foursquare\HttpClient\CurlHttpClient();
 
-### Select your preferred Redirector
+### Select your preferred Redirector (HeaderRedirector is the default)
 
-      $redirector = new \TheTwelve\Foursquare\Redirector\SymfonyRedirector();
+      $redirector = new \TheTwelve\Foursquare\Redirector\HeaderRedirector();
 
 ### Instantiate the API Gateway Factory
 
@@ -85,6 +85,16 @@ foursquare client into your project.
         'radius' => 1000,
         'intent' => 'checkin'
       ));
+
+## Working With Symfony / Silex
+
+If you're working with Symfony or Silex, you can use the Symfony HttpClient and Redirector  
+
+      $client = new \TheTwelve\Foursquare\HttpClient\SymfonyHttpClient();
+      $redirector = new \TheTwelve\Foursquare\Redirector\SymfonyRedirector();  
+
+If you're working with Silex, there is a Service Provider available at 
+[https://github.com/chriswoodford/FoursquareServiceProvider](https://github.com/chriswoodford/FoursquareServiceProvider)  
 
 ## License
 
