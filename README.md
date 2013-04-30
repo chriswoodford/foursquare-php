@@ -30,6 +30,10 @@ foursquare client into your project.
 
       $client = new \TheTwelve\Foursquare\HttpClient\SymfonyHttpClient();
 
+### Select your preferred Redirector
+
+      $redirector = new \TheTwelve\Foursquare\Redirector\SymfonyRedirector();
+
 ### Instantiate the API Gateway Factory
 
       $factory = new \TheTwelve\Foursquare\ApiGatewayFactory($client);
@@ -44,6 +48,7 @@ foursquare client into your project.
 ### Begin authentication with Foursquare
 
       $auth = $factory->getAuthenticationGateway(
+          $redirector,
           'https://foursquare.com/oauth2/authorize',
           'https://foursquare.com/oauth2/access_token',
           'YOUR_REDIRECT_URL'
