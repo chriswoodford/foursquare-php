@@ -42,14 +42,4 @@ class BuzzHttpClient extends HttpClientAdapter
 
     }
 
-    /**
-     * (non-PHPdoc)
-     * @see \TheTwelve\Foursquare.HttpClient::redirect()
-     */
-    public function redirect($uri)
-    {
-
-
-    }
-
 }

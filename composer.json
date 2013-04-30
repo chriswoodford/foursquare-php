@@ -8,16 +8,20 @@
         {
             "name": "Chris Woodford",
             "email": "chris.woodford@gmail.com",
-            "homepage": "http://ideaphp.com"
+            "homepage": "http://ideapatterns.com"
         }
     ],
     "require": {
         "php": ">=5.3.3",  
         "ext-curl": "*"
     },
-    "suggest": {
+    "require-dev": {
         "symfony/http-foundation": "2.2.*",
         "kriswallsmith/buzz": "0.7.*"
+    },
+    "suggest": {
+        "symfony/http-foundation": "Use Symfony for HTTP Requests and Redirects",
+        "kriswallsmith/buzz": "Use Buzz for HTTP Requests"
     },
     "autoload": {
         "psr-0": { "TheTwelve\\Foursquare\\": "lib" }

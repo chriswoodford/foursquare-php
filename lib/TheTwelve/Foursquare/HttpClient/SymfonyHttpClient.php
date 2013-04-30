@@ -80,19 +80,6 @@ class SymfonyHttpClient extends HttpClientAdapter
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \TheTwelve\Foursquare.HttpClient::redirect()
-     */
-    public function redirect($uri)
-    {
-
-        $response = new HttpFoundation\RedirectResponse($uri);
-        $response->sendHeaders();
-        return $response;
-
-    }
-
-    /**
      * initialize the cURL handler
      * @param string $uri
      * @return resource
