@@ -93,6 +93,10 @@ class CurlHttpClient extends HttpClientAdapter
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         }
 
+        // TODO: need to include cacert.pem
+        // @see http://curl.haxx.se/docs/caextract.html
+        //curl_setopt ($ch, CURLOPT_CAINFO, __DIR__ . "/cacert.pem");
+
         return $ch;
 
     }
@@ -106,6 +110,15 @@ class CurlHttpClient extends HttpClientAdapter
     {
 
         $response = curl_exec($ch);
+
+        $error = curl_error($ch);
+        $code = curl_errno($ch);
+
+        if ($error) {
+            curl_close($ch);
+            throw new \RuntimeException($error, $code);
+        }
+
         curl_close($ch);
         return $response;
 
