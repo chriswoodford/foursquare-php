@@ -14,9 +14,8 @@ class TheTwelve_Foursquare_HttpClient_BuzzHttpClientTest
 
     }
 
-    public function testRedirect()
+    public function testPost()
     {
-
 
     }
 

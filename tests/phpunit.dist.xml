@@ -12,6 +12,10 @@
     <testsuite name="HttpClient Test Suite">
         <directory>./lib/TheTwelve/Foursquare/HttpClient</directory>
     </testsuite>
+
+    <testsuite name="Redirector Test Suite">
+        <directory>./lib/TheTwelve/Foursquare/Redirector</directory>
+    </testsuite>
     
     <testsuite name="API Gateway Factory Test Suite">
         <file>./lib/TheTwelve/Foursquare/ApiGatewayFactoryTest.php</file>
