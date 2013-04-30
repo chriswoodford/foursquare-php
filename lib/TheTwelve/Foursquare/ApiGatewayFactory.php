@@ -93,16 +93,17 @@ class ApiGatewayFactory
 
     /**
      * factory method for authentication gateway
+     * @param \TheTwelve\Foursquare\Redirector $redirector
      * @param string $authorizeUri
      * @param string $accessTokenUri
      * @param string $redirectUri
      * @return \TheTwelve\Foursquare\AuthenticationGateway
      */
     public function getAuthenticationGateway(
-        $authorizeUri, $accessTokenUri, $redirectUri
+        Redirector $redirector, $authorizeUri, $accessTokenUri, $redirectUri
     ) {
 
-        $gateway = new AuthenticationGateway($this->httpClient);
+        $gateway = new AuthenticationGateway($this->httpClient, $redirector);
         $gateway->setAuthorizeUri($authorizeUri)
                 ->setAccessTokenUri($accessTokenUri)
                 ->setRedirectUri($redirectUri)

@@ -20,6 +20,22 @@ class AuthenticationGateway extends EndpointGateway
     /** @var string */
     protected $redirectUri;
 
+    /** @var \TheTwelve\Foursquare\Redirector */
+    protected $redirector;
+
+    /**
+     * initialize the authentication gateway
+     * @param \TheTwelve\Foursquare\HttpClient $httpClient
+     * @param \TheTwelve\Foursquare\Redirector $redirector
+     */
+    public function __construct(HttpClient $httpClient, Redirector $redirector)
+    {
+
+        parent::__construct($httpClient);
+        $this->redirector = $redirector;
+
+    }
+
     /**
      * set the authentication uri
      * @param string $uri
@@ -75,7 +91,7 @@ class AuthenticationGateway extends EndpointGateway
         }
 
         $uri = $this->getAuthenticationUri();
-        return $this->httpClient->redirect($uri);
+        return $this->redirector->redirect($uri);
 
     }
 
