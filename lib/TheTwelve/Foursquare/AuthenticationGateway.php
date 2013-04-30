@@ -70,7 +70,7 @@ class AuthenticationGateway extends EndpointGateway
 
         if (!$this->canInitiateLogin()) {
             throw new \RuntimeException(
-            	'Cannot authenticate user, dependencies are missing'
+            	'Unable to initiate login'
             );
         }
 
@@ -87,6 +87,12 @@ class AuthenticationGateway extends EndpointGateway
      */
     public function getAuthenticationUri()
     {
+
+        if (!$this->canBuildAuthenticationUri()) {
+            throw new \RuntimeException(
+            	'Cannot build authentication uri, dependencies are missing'
+            );
+        }
 
         $uriParams = array(
             'client_id' => $this->id,
@@ -139,6 +145,15 @@ class AuthenticationGateway extends EndpointGateway
      * @return boolean
      */
     protected function canInitiateLogin()
+    {
+        return true;
+    }
+
+    /**
+     * assert that it is possible to build the authentication uri
+     * @return boolean
+     */
+    protected function canBuildAuthenticationUri()
     {
         return $this->id && $this->redirectUri && $this->authorizeUri;
     }
