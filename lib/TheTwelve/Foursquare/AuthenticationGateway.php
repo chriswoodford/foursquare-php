@@ -105,7 +105,7 @@ class AuthenticationGateway extends EndpointGateway
         }
 
         $uriParams = array(
-            'client_id' => $this->id,
+            'client_id' => $this->clientId,
             'response_type' => 'code',
             'redirect_uri' => $this->redirectUri,
         );

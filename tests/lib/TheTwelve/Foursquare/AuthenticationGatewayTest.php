@@ -20,9 +20,20 @@ class TheTwelve_Foursquare_AuthenticationGatewayTest
     public function testLogin()
     {
 
-        $gateway = $this->getAuthenticationGateway();
+        $redirector = $this->getRedirector();
 
+        $gateway = $this->getAuthenticationGateway(null, $redirector);
 
+        $uri = $gateway->getAuthenticationUri();
+
+        $redirector->expects($this->once())
+                   ->method('redirect')
+                   ->with($uri)
+                   ->will($this->returnValue($uri));
+
+        $ret = $gateway->initiateLogin();
+
+        $this->assertEquals($uri, $ret);
 
     }
 
