@@ -13,12 +13,12 @@
     ],
     "require": {
         "php": ">=5.3.3",  
-        "ext-curl": "*",
-        "haxx-se/curl": "1.0.0"
+        "ext-curl": "*"
     },
     "require-dev": {
         "symfony/http-foundation": "2.2.*",
-        "kriswallsmith/buzz": "0.7.*"
+        "kriswallsmith/buzz": "0.7.*",
+        "haxx-se/curl": "1.0.0"
     },
     "repositories": [
         {
