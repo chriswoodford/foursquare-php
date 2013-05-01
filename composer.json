@@ -13,14 +13,28 @@
     ],
     "require": {
         "php": ">=5.3.3",  
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "haxx-se/curl": "*"
     },
     "require-dev": {
         "symfony/http-foundation": "2.2.*",
         "kriswallsmith/buzz": "0.7.*"
     },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "haxx-se/curl",
+                "version": "1.0.0",
+                "dist": {
+                    "url": "http://curl.haxx.se/ca/cacert.pem",
+                    "type": "file"
+                }
+            }
+        }
+    ],
     "suggest": {
-        "symfony/http-foundation": "Use Symfony for HTTP Requests and Redirects",
+        "symfony/http-foundation": "Use Symfony for HTTP Requests and/or Redirects",
         "kriswallsmith/buzz": "Use Buzz for HTTP Requests"
     },
     "autoload": {
