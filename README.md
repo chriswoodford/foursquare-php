@@ -107,7 +107,8 @@ You can add this as a dependency in your composer file. Your `composer.json` mig
 
       {
           "require": {
-              "thetwelvelabs/foursquare": "dev-master@dev"
+              "thetwelvelabs/foursquare": "dev-master@dev",
+              "haxx-se/curl": "1.0.0"
           },
           "repositories": [
               {
