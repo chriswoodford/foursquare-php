@@ -15,6 +15,7 @@ class HeaderRedirector implements Foursquare\Redirector
     {
 
         header('Location: ' . $uri);
+        exit(0);
 
     }
 
