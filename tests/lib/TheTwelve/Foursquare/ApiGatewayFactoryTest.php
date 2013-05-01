@@ -31,11 +31,10 @@ class TheTwelve_Foursquare_ApiGatewayFactoryTest
         $client = $this->getHttpClient();
         $redirector = $this->getMockForAbstractClass('TheTwelve\Foursquare\Redirector');
 
-        $factory = $this->createFactory($client);
+        $factory = $this->createFactory($client, null, $redirector);
         $factory->setClientCredentials($_GET['clientId'], $_GET['clientSecret']);
 
         $gateway = $factory->getAuthenticationGateway(
-            $redirector,
             $_GET['authorizeUri'],
             $_GET['accessTokenUri'],
             $_GET['redirectUri']
@@ -53,6 +52,23 @@ class TheTwelve_Foursquare_ApiGatewayFactoryTest
         $this->assertAttributeEquals($client, 'httpClient', $gateway);
         $this->assertAttributeEquals(null, 'token', $gateway);
         $this->assertAttributeEquals(null, 'requestUri', $gateway);
+
+    }
+
+    public function testAuthenticationGatewatWithoutRedirector()
+    {
+
+        $client = $this->getHttpClient();
+
+        $factory = $this->createFactory($client);
+        $factory->setClientCredentials($_GET['clientId'], $_GET['clientSecret']);
+
+        $this->setExpectedException('RuntimeException');
+        $gateway = $factory->getAuthenticationGateway(
+            $_GET['authorizeUri'],
+            $_GET['accessTokenUri'],
+            $_GET['redirectUri']
+        );
 
     }
 
@@ -135,10 +151,10 @@ class TheTwelve_Foursquare_ApiGatewayFactoryTest
 
     }
 
-    protected function createFactory($client, $token = null)
+    protected function createFactory($client, $token = null, $redirector = null)
     {
 
-        $factory = new \TheTwelve\Foursquare\ApiGatewayFactory($client);
+        $factory = new \TheTwelve\Foursquare\ApiGatewayFactory($client, $redirector);
         $factory->useVersion(2);
         $factory->setEndpointUri($_GET['endpointUri']);
         $factory->setToken($token);

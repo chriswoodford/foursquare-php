@@ -33,10 +33,12 @@ foursquare client into your project.
 ### Select your preferred Redirector (HeaderRedirector is the default)
 
       $redirector = new \TheTwelve\Foursquare\Redirector\HeaderRedirector();
+      
+Note: The redirector is optional and is only needed if you need Foursquare authentication  
 
 ### Instantiate the API Gateway Factory
 
-      $factory = new \TheTwelve\Foursquare\ApiGatewayFactory($client);
+      $factory = new \TheTwelve\Foursquare\ApiGatewayFactory($client, $redirector);
       
       // Required for most requests
       $factory->setClientCredentials('CLIENT_ID', 'CLIENT_SECRET');
@@ -48,7 +50,6 @@ foursquare client into your project.
 ### Begin authentication with Foursquare
 
       $auth = $factory->getAuthenticationGateway(
-          $redirector,
           'https://foursquare.com/oauth2/authorize',
           'https://foursquare.com/oauth2/access_token',
           'YOUR_REDIRECT_URL'
@@ -60,7 +61,8 @@ foursquare client into your project.
 
       $code = $_GET['code'];
 
-      // You should do some input sanitization to $code here, just in case 
+      // You should do some input sanitization to $code here, just in case  
+       
       $token = $authGateway->authenticateUser($code);
 
 ### Update the API Gateway Factory with your OAuth token

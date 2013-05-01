@@ -8,6 +8,9 @@ class ApiGatewayFactory
     /** @var \TheTwelve\Foursquare\HttpClient */
     protected $httpClient;
 
+    /** @var \TheTwelve\Foursquare\Redirector */
+    protected $redirector;
+
     /** @var string */
     protected $version = 'v2';
 
@@ -30,10 +33,11 @@ class ApiGatewayFactory
      * initialize the gateway
      * @param \TheTwelve\Foursquare\HttpClient $httpClient
      */
-    public function __construct(HttpClient $httpClient)
+    public function __construct(HttpClient $httpClient, Redirector $redirector = null)
     {
 
         $this->httpClient = $httpClient;
+        $this->redirector = $redirector;
 
     }
 
@@ -93,17 +97,20 @@ class ApiGatewayFactory
 
     /**
      * factory method for authentication gateway
-     * @param \TheTwelve\Foursquare\Redirector $redirector
      * @param string $authorizeUri
      * @param string $accessTokenUri
      * @param string $redirectUri
      * @return \TheTwelve\Foursquare\AuthenticationGateway
      */
     public function getAuthenticationGateway(
-        Redirector $redirector, $authorizeUri, $accessTokenUri, $redirectUri
+        $authorizeUri, $accessTokenUri, $redirectUri
     ) {
 
-        $gateway = new AuthenticationGateway($this->httpClient, $redirector);
+        if (!$this->redirector instanceof Redirector) {
+            throw new \RuntimeException("A Redirector is required for authentication");
+        }
+
+        $gateway = new AuthenticationGateway($this->httpClient, $this->redirector);
         $gateway->setAuthorizeUri($authorizeUri)
                 ->setAccessTokenUri($accessTokenUri)
                 ->setRedirectUri($redirectUri)
