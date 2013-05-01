@@ -28,7 +28,7 @@ foursquare client into your project.
 
 ### Select your preferred HTTP Client (CurlHttpClient is the default)
 
-      $client = new \TheTwelve\Foursquare\HttpClient\CurlHttpClient();
+      $client = new \TheTwelve\Foursquare\HttpClient\CurlHttpClient($pathToCertificateFile);
 
 ### Select your preferred Redirector (HeaderRedirector is the default)
 
@@ -97,6 +97,34 @@ If you're working with Symfony or Silex, you can use the Symfony HttpClient and 
 
 If you're working with Silex, there is a Service Provider available at 
 [https://github.com/chriswoodford/FoursquareServiceProvider](https://github.com/chriswoodford/FoursquareServiceProvider)  
+
+## Using the CurlHttpClient
+
+If you're using the CurlHttpClient, you will probably want to include the cacert.pem file 
+that can be found at [http://curl.haxx.se/docs/caextract.html](http://curl.haxx.se/docs/caextract.html)  
+
+You can add this as a dependency in your composer file. You `composer.json` might look something like this:  
+
+      {
+          "require": {
+              "thetwelvelabs/foursquare": "dev-master@dev"
+          },
+          "repositories": [
+              {
+                  "type": "package",
+                  "package": {
+                      "name": "haxx-se/curl",
+                      "version": "1.0.0",
+                      "dist": {
+                          "url": "http://curl.haxx.se/ca/cacert.pem",
+                          "type": "file"
+                      }
+                  }
+              }
+          ]
+      }
+
+You will be able to find the cacert.pem file in `vendor/haxx-se/curl/cacert.pem`  
 
 ## License
 
