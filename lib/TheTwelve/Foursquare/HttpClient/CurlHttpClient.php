@@ -25,6 +25,26 @@ class CurlHttpClient extends HttpClientAdapter
     protected $verifyHost = 2;
 
     /**
+     * The name of a file holding one or more certificates to verify
+     * the peer with. This only makes sense when used in combination
+     * with CURLOPT_SSL_VERIFYPEER
+     * @var string
+     */
+    protected $certificatePath;
+
+    /**
+     *
+     *
+     * @param string $certificatePath
+     */
+    public function __construct($certificatePath = null)
+    {
+
+        $this->certificatePath = $certificatePath;
+
+    }
+
+    /**
      * update the verify peer property
      * @param boolean $value
      */
@@ -91,16 +111,18 @@ class CurlHttpClient extends HttpClientAdapter
 
         if ($this->verifyPeer === false) {
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        } else {
+
+            // @see http://curl.haxx.se/docs/caextract.html
+
+            if (!file_exists($this->certificatePath)) {
+                throw new \RuntimeException('cacert.pem file not found');
+            }
+
+            curl_setopt ($ch, CURLOPT_CAINFO, $this->certificatePath);
+
         }
 
-        // @see http://curl.haxx.se/docs/caextract.html
-        $certificatePath = realpath(__DIR__ . '/../../../../vendor/haxx-se/curl/cacert.pem');
-
-        if (!file_exists($certificatePath)) {
-            throw new \RuntimeException('cacert.pem file not found');
-        }
-
-        curl_setopt ($ch, CURLOPT_CAINFO, $certificatePath);
         return $ch;
 
     }
