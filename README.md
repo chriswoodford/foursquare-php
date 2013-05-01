@@ -103,7 +103,7 @@ If you're working with Silex, there is a Service Provider available at
 If you're using the CurlHttpClient, you will probably want to include the cacert.pem file 
 that can be found at [http://curl.haxx.se/docs/caextract.html](http://curl.haxx.se/docs/caextract.html)  
 
-You can add this as a dependency in your composer file. You `composer.json` might look something like this:  
+You can add this as a dependency in your composer file. Your `composer.json` might look something like this:  
 
       {
           "require": {
