@@ -135,6 +135,21 @@ class UsersGateway extends EndpointGateway
     }
 
     /**
+     * Returns an array of a user's tips.
+     * @see https://developer.foursquare.com/docs/users/tips
+     * @param array $options
+     */
+    public function getFriends(array $options = array())
+    {
+
+        $uri = $this->buildUserResourceUri('tips');
+        $response = $this->makeAuthenticatedApiRequest($uri, $options);
+
+        return $response->tips->items;
+
+    }
+
+    /**
      * A User's Lists.
      * @see https://developer.foursquare.com/docs/users/lists
      * @param array $options
