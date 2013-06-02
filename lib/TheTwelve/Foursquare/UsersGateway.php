@@ -139,7 +139,7 @@ class UsersGateway extends EndpointGateway
      * @see https://developer.foursquare.com/docs/users/tips
      * @param array $options
      */
-    public function getFriends(array $options = array())
+    public function getTips(array $options = array())
     {
 
         $uri = $this->buildUserResourceUri('tips');
