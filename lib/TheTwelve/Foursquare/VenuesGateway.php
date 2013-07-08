@@ -67,7 +67,11 @@ class VenuesGateway extends EndpointGateway
         $resource = '/venues/search';
         $response = $this->makeApiRequest($resource, $params);
 
-        return $response->venues;
+        if(property_exists($response, 'venues')) {
+            return $response->venues;
+        }
+        
+        return array();
     }
 
     public function suggestCompletion()
