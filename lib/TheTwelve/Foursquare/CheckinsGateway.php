@@ -20,4 +20,21 @@ class CheckinsGateway extends EndpointGateway
 
         return $response;
     }
+    
+   /**
+    * Returns a list of recent checkins from friends.
+    * @param array $options
+    * @return object https://developer.foursquare.com/docs/responses/checkin
+    * @see https://developer.foursquare.com/docs/checkins/recent
+    */
+   public function getRecent(array $options = array())
+   {
+   	$resource = '/checkins/recent';
+	$response = $this->makeAuthenticatedApiRequest($resource,$options);
+	return $response;
+   }    
+
+    
+    
+    
 }
