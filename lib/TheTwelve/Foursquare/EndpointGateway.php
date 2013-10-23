@@ -21,12 +21,32 @@ class EndpointGateway
     protected $clientSecret;
 
     /**
+     * @see https://developer.foursquare.com/overview/versioning
+     * @var \DateTime
+     */
+    protected $dateVerified;
+
+    /**
      * initialize the gateway
      * @param \TheTwelve\Foursquare\HttpClient $client
      */
     public function __construct(HttpClient $httpClient)
     {
         $this->httpClient = $httpClient;
+        $this->dateVerified = new \DateTime('2013-10-23');
+    }
+
+    /**
+     * optionally allows you to overwrite the date that essentially
+     * represents the version of the API to expect from foursquare
+     * @see https://developer.foursquare.com/overview/versioning
+     * @param \DateTime $date
+     * @return \TheTwelve\Foursquare\EndpointGateway
+     */
+    public function setDateVerified(\DateTime $date)
+    {
+        $this->dateVerified = $date;
+        return $this;
     }
 
     /**
@@ -100,7 +120,7 @@ class EndpointGateway
         }
 
         // apply a dated "version"
-        $params['v'] = date('Ymd');
+        $params['v'] = $this->dateVerified->format('Ymd');
 
         switch ($method) {
             case 'GET':
