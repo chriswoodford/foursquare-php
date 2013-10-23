@@ -43,7 +43,7 @@ class EndpointGateway
      * @param \DateTime $date
      * @return \TheTwelve\Foursquare\EndpointGateway
      */
-    public function setDateVerified(\DateTime $date)
+    public function verifiedOn(\DateTime $date)
     {
         $this->dateVerified = $date;
         return $this;
