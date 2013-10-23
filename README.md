@@ -43,9 +43,10 @@ Note: The redirector is optional and is only needed if you need Foursquare authe
       // Required for most requests
       $factory->setClientCredentials('CLIENT_ID', 'CLIENT_SECRET');
 
-      // Optional
+      // Optional (only use these if you know what you're doing)
       $factory->setEndpointUri('https://api.foursquare.com');
       $factory->useVersion(2);
+      $factory->verifiedOn(new \DateTime());
 
 ### Begin authentication with Foursquare
 
