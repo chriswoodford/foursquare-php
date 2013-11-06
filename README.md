@@ -12,7 +12,7 @@ foursquare client into your project.
 
       {
           "require": {
-              "thetwelvelabs/foursquare": "dev-master@dev"
+              "thetwelvelabs/foursquare": "0.2.*"
           }
       }
 
@@ -43,9 +43,10 @@ Note: The redirector is optional and is only needed if you need Foursquare authe
       // Required for most requests
       $factory->setClientCredentials('CLIENT_ID', 'CLIENT_SECRET');
 
-      // Optional
+      // Optional (only use these if you know what you're doing)
       $factory->setEndpointUri('https://api.foursquare.com');
       $factory->useVersion(2);
+      $factory->verifiedOn(new \DateTime());
 
 ### Begin authentication with Foursquare
 
@@ -107,7 +108,7 @@ You can add this as a dependency in your composer file. Your `composer.json` mig
 
       {
           "require": {
-              "thetwelvelabs/foursquare": "dev-master@dev",
+              "thetwelvelabs/foursquare": "0.2.*",
               "haxx-se/curl": "1.0.0"
           },
           "repositories": [
