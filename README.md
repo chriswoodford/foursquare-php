@@ -64,7 +64,7 @@ Note: The redirector is optional and is only needed if you need Foursquare authe
 
       // You should do some input sanitization to $code here, just in case  
        
-      $token = $authGateway->authenticateUser($code);
+      $token = $auth->authenticateUser($code);
 
 ### Update the API Gateway Factory with your OAuth token
 
