@@ -32,6 +32,7 @@ class ApiGatewayFactory
     /**
      * initialize the gateway
      * @param \TheTwelve\Foursquare\HttpClient $httpClient
+     * @param Redirector $redirector
      */
     public function __construct(HttpClient $httpClient, Redirector $redirector = null)
     {
@@ -100,6 +101,7 @@ class ApiGatewayFactory
      * @param string $authorizeUri
      * @param string $accessTokenUri
      * @param string $redirectUri
+     * @throws \RuntimeException
      * @return \TheTwelve\Foursquare\AuthenticationGateway
      */
     public function getAuthenticationGateway(
@@ -163,9 +165,19 @@ class ApiGatewayFactory
     }
 
     /**
+     * factory method for users gateway
+     * @param string|null $listId
+     * @return \TheTwelve\Foursquare\ListsGateway
+     */
+    public function getListGateway($listId = null)
+    {
+        $gateway = new ListsGateway($this->httpClient);
+        $this->injectListGatewayDependencies($gateway, $listId);
+        return $gateway;
+    }
+
+    /**
      * factory method for venues gateway
-     * @param string $id
-     * @param string $secret
      * @return \TheTwelve\Foursquare\VenuesGateway
      */
     public function getVenuesGateway()
@@ -221,7 +233,8 @@ class ApiGatewayFactory
 
     /**
      * inject the minimum required dependencies
-     * @param \TheTwelve\FoursquareEndpointGateway $gateway
+     * @param \TheTwelve\Foursquare\EndpointGateway $gateway
+     * @param null $userId
      */
     protected function injectGatewayDependencies(EndpointGateway $gateway, $userId = null)
     {
@@ -234,6 +247,21 @@ class ApiGatewayFactory
                 ->setToken($this->token)
                 ->setClientCredentials($this->clientId, $this->clientSecret);
 
+    }
+
+    /**
+     * inject the minimum required dependencies
+     * @param \TheTwelve\Foursquare\EndpointGateway $gateway
+     * @param null $listId
+     */
+    protected function injectListGatewayDependencies(EndpointGateway $gateway, $listId = null)
+    {
+        if ($listId) {
+            $gateway->setListId($listId);
+        }
+        $gateway->setRequestUri($this->getRequestUri())
+                ->setToken($this->token)
+                ->setClientCredentials($this->clientId, $this->clientSecret);
     }
 
 }
