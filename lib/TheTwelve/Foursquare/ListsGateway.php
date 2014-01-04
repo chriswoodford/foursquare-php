@@ -26,7 +26,7 @@ class ListsGateway extends EndpointGateway
     public function getList(array $options = array())
     {
         $uri = $this->buildListResourceUri($this->listId);
-        $response = $this->makeAuthenticatedApiRequest($uri, $options);
+        $response = $this->makeApiRequest($uri, $options);
         return $response->list;
     }
 
