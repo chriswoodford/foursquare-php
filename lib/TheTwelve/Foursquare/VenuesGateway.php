@@ -5,7 +5,7 @@ namespace TheTwelve\Foursquare;
 class VenuesGateway extends EndpointGateway
 {
     /**
-     * Enter description here ...
+     * Get venue by ID
      * @param string $venueId
      * @return object
      */
@@ -34,7 +34,11 @@ class VenuesGateway extends EndpointGateway
         $resource = '/venues/categories';
         $response = $this->makeApiRequest($resource);
 
-        return $response->categories;
+        if(property_exists($response, 'categories')) {
+            return $response->categories;
+        }
+
+        return array();
     }
 
     public function explore()
@@ -74,11 +78,60 @@ class VenuesGateway extends EndpointGateway
         return array();
     }
 
-    public function suggestCompletion()
-    {}
+    /**
+     * Returns a list of mini-venues partially matching the search term, near the location.
+     * @see https://developer.foursquare.com/docs/venues/suggestcompletion
+     * @param array $params
+     * @return array
+     */
+    public function suggestCompletion(array $params = array())
+    {
+        $resource = '/venues/suggestcompletion';
+        $response = $this->makeApiRequest($resource, $params);
 
-    public function trending()
-    {}
+        if(property_exists($response, 'minivenues')) {
+            return $response->minivenues;
+        }
+
+        return array();
+    }
+
+    /**
+     * Get daily venue stats for a list of venues over a time range.
+     * User must be venue manager.
+     * @see https://developer.foursquare.com/docs/venues/timeseries
+     * @param array $params
+     * @return array
+     */
+    public function timeSeries(array $params = array())
+    {
+        $resource = '/venues/timeseries';
+        $response = $this->makeApiRequest($resource, $params);
+
+        if(property_exists($response, 'timeseries')) {
+            return $response->timeseries;
+        }
+
+        return array();
+    }
+
+    /**
+     * Returns a list of venues near the current location with the most people currently checked in.
+     * @see https://developer.foursquare.com/docs/venues/trending
+     * @param array $params
+     * @return array
+     */
+    public function trending(array $params = array())
+    {
+        $resource = '/venues/trending';
+        $response = $this->makeApiRequest($resource, $params);
+
+        if(property_exists($response, 'venues')) {
+            return $response->venues;
+        }
+
+        return array();
+    }
 
     /**
      * Allows you to access information about the current events at a place.
