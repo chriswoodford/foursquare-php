@@ -144,12 +144,32 @@ class VenuesGateway extends EndpointGateway
         $resource = '/venues/' . $venueId . '/events';
         $response = $this->makeApiRequest($resource);
 
-        return $response->events->items;
+        if(property_exists($response, 'events')) {
+            return $response->events->items;
+        }
+
+        return array();
 
     }
 
-    public function hereNow()
-    {}
+    /**
+     * Provides a count of how many people are at a given venue.
+     * @param string $venueId
+     * @return int
+     */
+    public function hereNow($venueId)
+    {
+
+        $resource = '/venues/' . $venueId . '/herenow';
+        $response = $this->makeApiRequest($resource);
+
+        if(property_exists($response, 'hereNow')) {
+            return $response->hereNow->count;
+        }
+
+        return 0;
+
+    }
 
     /**
      * Returns hours for a venue.
@@ -181,25 +201,144 @@ class VenuesGateway extends EndpointGateway
 
     }
 
-    public function links()
-    {}
+    /**
+     * Returns URLs or identifiers from third parties that have been applied to this venue.
+     * @param string $venueId
+     * @return array
+     */
+    public function links($venueId)
+    {
 
-    public function lists()
-    {}
+        $resource = '/venues/' . $venueId . '/links';
+        $response = $this->makeApiRequest($resource);
+
+        if(property_exists($response, 'links')) {
+            return $response->links->items;
+        }
+
+        return array();
+
+    }
+
+    /**
+     * The lists that this venue appears on.
+     * @param string $venueId
+     * @return array
+     */
+    public function lists($venueId)
+    {
+
+        $resource = '/venues/' . $venueId . '/listed';
+        $response = $this->makeApiRequest($resource);
+
+        if(property_exists($response, 'lists')) {
+            return $response->lists->groups;
+        }
+
+        return array();
+
+    }
 
     public function menu()
     {}
 
-    public function photos()
-    {}
+    /**
+     * Returns venues that people often check in to after the current venue.
+     * @param $venueId
+     * @return array
+     */
+    public function nextVenues($venueId)
+    {
 
-    public function similar()
-    {}
+        $resource = '/venues/' . $venueId . '/nextvenues';
+        $response = $this->makeApiRequest($resource);
 
-    public function stats()
-    {}
+        if(property_exists($response, 'nextVenues')) {
+            return $response->nextVenues->items;
+        }
 
-    public function tips()
+        return array();
+
+    }
+
+    /**
+     * Returns photos for a venue.
+     * @param $venueId
+     * @return array
+     */
+    public function photos($venueId)
+    {
+
+        $resource = '/venues/' . $venueId . '/photos';
+        $response = $this->makeApiRequest($resource);
+
+        if(property_exists($response, 'photos')) {
+            return $response->photos->items;
+        }
+
+        return array();
+
+    }
+
+    /**
+     * Returns a list of venues similar to the specified venue.
+     * @param $venueId
+     * @return array
+     */
+    public function similar($venueId)
+    {
+
+        $resource = '/venues/' . $venueId . '/similar';
+        $response = $this->makeApiRequest($resource);
+
+        if(property_exists($response, 'similarVenues')) {
+            return $response->similarVenues->items;
+        }
+
+        return array();
+
+    }
+
+    /**
+     * Get venue stats over a given time range. Only available to the manager of a venue.
+     * User must be venue manager.
+     * @param $venueId
+     * @return array
+     */
+    public function stats($venueId)
+    {
+
+        $resource = '/venues/' . $venueId . '/stats';
+        $response = $this->makeApiRequest($resource);
+
+        if(property_exists($response, 'stats')) {
+            return $response->stats;
+        }
+
+        return array();
+
+    }
+
+    /**
+     * Returns tips for a venue.
+     * @param $venueId
+     * @return array
+     */
+    public function tips($venueId)
+    {
+
+        $resource = '/venues/' . $venueId . '/tips';
+        $response = $this->makeApiRequest($resource);
+
+        if(property_exists($response, 'tips')) {
+            return $response->tips->items;
+        }
+
+        return array();
+
+    }
+
+    public function dislike()
     {}
 
     public function edit()
