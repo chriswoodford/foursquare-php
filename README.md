@@ -1,11 +1,11 @@
 # Foursquare API Client by TheTwelve Labs
 
-A(nother) PHP Foursquare API client  
+A(nother) PHP Foursquare API client
 [https://developer.foursquare.com/docs/](https://developer.foursquare.com/docs/)
 
 ## Installation
 
-[Composer](http://getcomposer.org) is currently the only way to install the 
+[Composer](http://getcomposer.org) is currently the only way to install the
 foursquare client into your project.
 
 ### Create your composer.json file
@@ -33,13 +33,13 @@ foursquare client into your project.
 ### Select your preferred Redirector (HeaderRedirector is the default)
 
       $redirector = new \TheTwelve\Foursquare\Redirector\HeaderRedirector();
-      
-Note: The redirector is optional and is only needed if you need Foursquare authentication  
+
+Note: The redirector is optional and is only needed if you need Foursquare authentication
 
 ### Instantiate the API Gateway Factory
 
       $factory = new \TheTwelve\Foursquare\ApiGatewayFactory($client, $redirector);
-      
+
       // Required for most requests
       $factory->setClientCredentials('CLIENT_ID', 'CLIENT_SECRET');
 
@@ -62,8 +62,8 @@ Note: The redirector is optional and is only needed if you need Foursquare authe
 
       $code = $_GET['code'];
 
-      // You should do some input sanitization to $code here, just in case  
-       
+      // You should do some input sanitization to $code here, just in case
+
       $token = $auth->authenticateUser($code);
 
 ### Update the API Gateway Factory with your OAuth token
@@ -91,20 +91,20 @@ Note: The redirector is optional and is only needed if you need Foursquare authe
 
 ## Working With Symfony / Silex
 
-If you're working with Symfony or Silex, you can use the Symfony HttpClient and Redirector  
+If you're working with Symfony or Silex, you can use the Symfony HttpClient and Redirector
 
       $client = new \TheTwelve\Foursquare\HttpClient\SymfonyHttpClient();
-      $redirector = new \TheTwelve\Foursquare\Redirector\SymfonyRedirector();  
+      $redirector = new \TheTwelve\Foursquare\Redirector\SymfonyRedirector();
 
-If you're working with Silex, there is a Service Provider available at 
-[https://github.com/chriswoodford/FoursquareServiceProvider](https://github.com/chriswoodford/FoursquareServiceProvider)  
+If you're working with Silex, there is a Service Provider available at
+[https://github.com/chriswoodford/FoursquareServiceProvider](https://github.com/chriswoodford/FoursquareServiceProvider)
 
 ## Using the CurlHttpClient
 
-If you're using the CurlHttpClient, you will probably want to include the cacert.pem file 
-that can be found at [http://curl.haxx.se/docs/caextract.html](http://curl.haxx.se/docs/caextract.html)  
+If you're using the CurlHttpClient, you will probably want to include the cacert.pem file
+that can be found at [http://curl.haxx.se/docs/caextract.html](http://curl.haxx.se/docs/caextract.html)
 
-You can add this as a dependency in your composer file. Your `composer.json` might look something like this:  
+You can add this as a dependency in your composer file. Your `composer.json` might look something like this:
 
       {
           "require": {
@@ -126,7 +126,11 @@ You can add this as a dependency in your composer file. Your `composer.json` mig
           ]
       }
 
-You will be able to find the cacert.pem file in `vendor/haxx-se/curl/cacert.pem`  
+You will be able to find the cacert.pem file in `vendor/haxx-se/curl/cacert.pem`
+
+## Contributing
+
+See [https://github.com/chriswoodford/foursquare-php/blob/master/CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## License
 
