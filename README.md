@@ -93,7 +93,7 @@ Note: The redirector is optional and is only needed if you need Foursquare authe
 
 If you're working with Symfony or Silex, you can use the Symfony HttpClient and Redirector
 
-      $client = new \TheTwelve\Foursquare\HttpClient\SymfonyHttpClient();
+      $client = new \TheTwelve\Foursquare\HttpClient\SymfonyHttpClient($pathToCertificateFile);
       $redirector = new \TheTwelve\Foursquare\Redirector\SymfonyRedirector();
 
 If you're working with Silex, there is a Service Provider available at
