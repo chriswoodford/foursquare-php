@@ -1,4 +1,4 @@
-# Foursquare API Client by TheTwelve Labs
+# Foursquare API Client
 
 A(nother) PHP Foursquare API client
 [https://developer.foursquare.com/docs/](https://developer.foursquare.com/docs/)
@@ -130,7 +130,7 @@ You will be able to find the cacert.pem file in `vendor/haxx-se/curl/cacert.pem`
 
 ## Contributing
 
-See [https://github.com/chriswoodford/foursquare-php/blob/master/CONTRIBUTING.md](CONTRIBUTING.md)
+See [CONTRIBUTING.md](https://github.com/chriswoodford/foursquare-php/blob/master/CONTRIBUTING.md)
 
 ## License
 
