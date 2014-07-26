@@ -3,6 +3,12 @@
 .project
 .settings
 
+# phpstorm files
+.idea
+
+# netbeans files
+nbproject/private
+
 # composer files
 composer.phar
 composer.lock
